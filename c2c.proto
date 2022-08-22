@@ -1,13 +1,12 @@
 syntax = "proto3";
 
 package c2c;
+import "google/protobuf/timestamp.proto";
 
 service C2C{
   // A simple RPC.
   //
-  // Obtains the MessageResponse at a given position.
- rpc GetProjectResponse(ProjectRequest) returns (ProjectResponse) {}
- rpc GetProjecstResponse(ProjectRequest) returns (ProjectResponse) {}
+ rpc GetProject(ProjectRequest) returns (ProjectResponse) {}
  // rpc GetPipelineResponse(ProjectRequest) returns (ProjectResponse) {}
 }
 
@@ -17,6 +16,6 @@ message ProjectRequest{
 
 message ProjectResponse{
  string project_name = 1;
- string message = 2;
- bool received = 3;
+ google.protobuf.Timestamp scheduled_start = 2;
+ google.protobuf.Timestamp scheduled_complete = 3;
 }
