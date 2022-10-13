@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 package c2c;
+import "google/protobuf/timestamp.proto";
 
 service C2C{
   // C2C RPCs
@@ -177,4 +178,5 @@ message CreateProjectResponse{
 // message GetProjectRunResponse{
   
 // }
+
 
