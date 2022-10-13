@@ -4,18 +4,179 @@ package c2c;
 import "google/protobuf/timestamp.proto";
 
 service C2C{
-  // A simple RPC.
+  // C2C RPCs
   //
- rpc GetProject(ProjectRequest) returns (ProjectResponse) {}
- // rpc GetPipelineResponse(ProjectRequest) returns (ProjectResponse) {}
+
+  // Generic
+  rpc CreateUser(User) returns (CreateUserResponse) {}
+  rpc CreateModel(Model) returns (CreateModelResponse) {}
+
+  // Projects
+  // rpc GetProjectStatus(ProjectRequest) returns (GetProjectStatusResponse) {} // C2C-51
+  rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse) {} // C2C-49
+
+  // Project Runs
+  // rpc GetProjectRun(stream ProjectRunRequest) returns (stream GetProjectRunResponse) {} // C2C-42, C2C-43
+  // rpc CreateProjectRun(stream CreateProjectRunRequest) returns (stream CreateProjectRunResponse) {}
+
+  // Models
+  // rpc GetModelContact(ModelRunRequest) returns (GetModelContactResponse) {} // C2C-28
+
+  // Datasets
+  // rpc CheckinDataset(stream CheckinDatasetRequest) returns (stream CheckinDatasetResponse) {} // C2C-29, C2C-30, C2C-31
+  // rpc GetDataset(stream GetDatasetRequest) returns (stream GetDatasetResponse) {} // C2C-35, C2C-36, C2C-37
+  // rpc GetDatasetLineage(stream GetDatasetRequest) returns (stream GetDatasetLineageResponse) {} // C2C-39, C2C-40
+  // rpc ModifyDataset(stream ModifyDatasetRequest) returns (stream ModifyDatasetResponse) {} // C2C-33
+}
+
+
+// Generic Request Objects
+message User{
+  string first_name = 1;
+  string last_name = 2;
+  string username = 3;
+  string email = 4;
+}
+
+message Model{
+  string name = 1;
+  repeated User team = 2;
+}
+
+message ModelRun{
+  string model = 1;
+  string config_source = 2;
+  string version = 3;
+  string scenario = 4;
 }
 
 message ProjectRequest{
- string project_name = 1;
+  oneof project {
+    string project_name = 1;
+    string vertex_id = 2;
+  }
 }
 
-message ProjectResponse{
- string project_name = 1;
- google.protobuf.Timestamp scheduled_start = 2;
- google.protobuf.Timestamp scheduled_complete = 3;
+
+message ProjectRunRequest{
+  ProjectRequest project = 1;
+  oneof project_run {
+    string run_name = 2;
+    string vertex_id = 3;
+  }
 }
+
+
+message ModelRunRequest{
+  ProjectRequest project = 1;
+  ProjectRunRequest project_run = 2;
+  oneof model_run {
+    string run_name = 3;
+    string vertex_id = 4;
+  }
+}
+
+// CreateUser
+message CreateUserResponse{
+  string created = 1;
+  string vertex_id = 2;
+  User user = 3;
+}
+
+// CreateModel
+message CreateModelResponse{
+  string created = 1;
+  string vertex_id = 2;
+  string model_name = 3;
+}
+
+// GetProjectStatus
+message GetProjectStatusResponse{
+
+}
+
+// CreateProject
+message CreateProjectRequest{
+  message ProjectRun{
+    string name = 1;
+    repeated ModelRun model_runs = 2;
+    repeated string topology = 3;
+  }
+  string name = 1;
+  User owner = 2;
+  repeated ProjectRun project_runs = 3;
+}
+
+message CreateProjectResponse{
+  string created = 1;
+  string vertex_id = 2;
+  string project_name = 3;
+}
+
+
+// Other
+// message CreateProjectRunRequest{
+//   ProjectRequest project = 1;
+//   string project_run_name = 2;
+// }
+
+
+// message GetDatasetRequest{
+//   ModelRunRequest model_run = 1;
+//   string dataset_name = 2;
+//   string vertex_id = 3;
+// }
+
+
+// message DatasetDetails{
+//   string filesystem = 1;
+//   string filepath = 2;
+// }
+
+
+// message CheckinDatasetRequest{
+//   ModelRunRequest model_run = 1;
+//   DatasetDetails details = 2;
+// }
+
+
+// message ModifyDatasetRequest{
+//   ModelRunRequest model_run = 1;
+//   string dataset_name = 2;
+//   string vertex_id = 3;
+//   DatasetDetails details = 4;
+// }
+
+
+// // Specific Responses
+// message GetModelContactResponse{
+
+// }
+
+
+// message CheckinDatasetResponse{
+
+// }
+
+
+// message GetDatasetResponse{
+//   string dataset_name = 1;
+//   string vertex_id = 2;
+// }
+
+
+// message GetDatasetLineageResponse{
+
+// }
+
+
+// message ModifyDatasetResponse{
+
+// }
+
+
+// message GetProjectRunResponse{
+  
+// }
+
+
