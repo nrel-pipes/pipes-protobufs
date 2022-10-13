@@ -2,10 +2,15 @@ syntax = "proto3";
 
 package c2c;
 import "google/protobuf/timestamp.proto";
+//import "google/protobuf/wrappers.proto";
+
 
 service C2C{
   // C2C RPCs
   //
+
+  // Health
+  rpc Ping(PingRequest) returns (PingResponse) {}
 
   // Generic
   rpc CreateUser(User) returns (CreateUserResponse) {}
@@ -27,6 +32,17 @@ service C2C{
   // rpc GetDataset(stream GetDatasetRequest) returns (stream GetDatasetResponse) {} // C2C-35, C2C-36, C2C-37
   // rpc GetDatasetLineage(stream GetDatasetRequest) returns (stream GetDatasetLineageResponse) {} // C2C-39, C2C-40
   // rpc ModifyDataset(stream ModifyDatasetRequest) returns (stream ModifyDatasetResponse) {} // C2C-33
+}
+
+
+message PingRequest{
+  string who_i_am = 1;
+}
+
+// Health Response Object
+message PingResponse{
+  google.protobuf.Timestamp response_date = 1;
+  bool is_happy = 2;
 }
 
 
@@ -177,6 +193,8 @@ message CreateProjectResponse{
 
 // message GetProjectRunResponse{
   
+
 // }
+
 
 
