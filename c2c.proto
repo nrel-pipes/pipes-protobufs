@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 package c2c;
+import "google/protobuf/struct.proto";
 import "google/protobuf/timestamp.proto";
 //import "google/protobuf/wrappers.proto";
 
@@ -28,7 +29,7 @@ service C2C{
   // rpc GetModelContact(ModelRunRequest) returns (GetModelContactResponse) {} // C2C-28
 
   // Datasets
-  // rpc CheckinDataset(stream CheckinDatasetRequest) returns (stream CheckinDatasetResponse) {} // C2C-29, C2C-30, C2C-31
+  rpc CreateDataset(stream CreateDatasetRequest) returns (stream CreateDatasetResponse) {} // C2C-29, C2C-30, C2C-31
   // rpc GetDataset(stream GetDatasetRequest) returns (stream GetDatasetResponse) {} // C2C-35, C2C-36, C2C-37
   // rpc GetDatasetLineage(stream GetDatasetRequest) returns (stream GetDatasetLineageResponse) {} // C2C-39, C2C-40
   // rpc ModifyDataset(stream ModifyDatasetRequest) returns (stream ModifyDatasetResponse) {} // C2C-33
@@ -47,34 +48,21 @@ message PingResponse{
 
 
 // Generic Request Objects
-message User{
+message User {
   string first_name = 1;
   string last_name = 2;
   string username = 3;
   string email = 4;
 }
 
-message Model{
-  string name = 1;
-  repeated User team = 2;
-}
-
-message ModelRun{
-  string model = 1;
-  string config_source = 2;
-  string version = 3;
-  string scenario = 4;
-}
-
-message ProjectRequest{
+message ProjectRequest {
   oneof project {
     string project_name = 1;
     string vertex_id = 2;
   }
 }
 
-
-message ProjectRunRequest{
+message ProjectRunRequest {
   ProjectRequest project = 1;
   oneof project_run {
     string run_name = 2;
@@ -82,14 +70,85 @@ message ProjectRunRequest{
   }
 }
 
-
-message ModelRunRequest{
+message ModelRunRequest {
   ProjectRequest project = 1;
   ProjectRunRequest project_run = 2;
   oneof model_run {
     string run_name = 3;
     string vertex_id = 4;
   }
+}
+
+message Model {
+  string name = 1;
+  repeated User team = 2;
+}
+
+message ModelRun {
+  string model = 1;
+  string config_source = 2;
+  string version = 3;
+  string scenario = 4;
+}
+
+enum VersionStatus {
+  Current = 0;
+  Expired = 1;
+  Unresolved = 2;
+}
+
+message TemporalInfo {
+  string extent = 1;
+  string fidelity = 2;
+  map<string, google.protobuf.Value> other = 3;
+}
+
+message SpatialInfo {
+  string extent = 1;
+  string fidelity = 2;
+  map<string, google.protobuf.Value> other = 3;
+}
+
+message SourceCode {
+  string location = 1;
+  string title = 2;
+  string tag = 3;
+  string image = 4;
+}
+
+message ESIFRepoFiles {
+  string url = 1;
+  string id = 4;
+  string dataset = 2;
+  string project = 3;
+  string tag = 5;
+}
+
+message Dataset {
+  string name = 1;
+  string version = 2;
+  VersionStatus version_status = 3;
+  string previous_version = 4;
+  string data_format = 5;
+  string schema_info = 6;
+  User registration_author = 7;
+  int32 weather_years = 8;
+  int32 model_years = 9;
+  string units = 10;
+  TemporalInfo temporal_info = 11;
+  SpatialInfo spatial_info = 12;
+  string scenarios = 13;
+  string sensitivities = 14;
+  string description = 15;
+  SourceCode source_code = 16;
+  string relevant_links = 17;
+  string comments = 18;
+  string input_datasets = 19;
+
+  oneof location {
+    ESIFRepoFiles esif_repo_files = 20;
+  }
+
 }
 
 // CreateUser
@@ -127,6 +186,19 @@ message CreateProjectResponse{
   string created = 1;
   string vertex_id = 2;
   string project_name = 3;
+}
+
+// CreateDataset
+message CreateDatasetRequest {
+  string project_run = 1;
+  string model = 2;
+  repeated Dataset datasets = 3;
+}
+
+message CreateDatasetResponse {
+  string created = 1;
+  string vertex_id = 2;
+  string dataset_name = 3;
 }
 
 
