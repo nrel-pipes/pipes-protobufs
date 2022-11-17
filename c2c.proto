@@ -111,17 +111,18 @@ message SpatialInfo {
 
 message SourceCode {
   string location = 1;
-  string title = 2;
+  string branch = 2;
   string tag = 3;
   string image = 4;
 }
 
 message ESIFRepoFiles {
   string url = 1;
-  string id = 4;
+  repeated string ids = 4;
   string dataset = 2;
   string project = 3;
-  string tag = 5;
+  repeated string tags = 5;
+  string description = 6;
 }
 
 message Dataset {
@@ -132,20 +133,20 @@ message Dataset {
   string data_format = 5;
   string schema_info = 6;
   User registration_author = 7;
-  int32 weather_years = 8;
-  int32 model_years = 9;
-  string units = 10;
+  repeated int32 weather_years = 8;
+  repeated int32 model_years = 9;
+  repeated string units = 10;
   TemporalInfo temporal_info = 11;
   SpatialInfo spatial_info = 12;
-  string scenarios = 13;
-  string sensitivities = 14;
+  repeated string scenarios = 13;
+  repeated string sensitivities = 14;
   string description = 15;
   SourceCode source_code = 16;
-  string relevant_links = 17;
+  repeated string relevant_links = 17;
   string comments = 18;
-  string input_datasets = 19;
+  repeated string input_datasets = 19;
 
-  oneof location {
+  oneof one_of_location {
     ESIFRepoFiles esif_repo_files = 20;
   }
 
