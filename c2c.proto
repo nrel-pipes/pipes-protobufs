@@ -1,7 +1,6 @@
 syntax = "proto3";
 
 package c2c;
-import "google/protobuf/struct.proto";
 import "google/protobuf/timestamp.proto";
 //import "google/protobuf/wrappers.proto";
 
@@ -13,187 +12,289 @@ service C2C{
   // Health
   rpc Ping(PingRequest) returns (PingResponse) {}
 
-  // Generic
-  rpc CreateUser(User) returns (CreateUserResponse) {}
-  rpc CreateModel(Model) returns (CreateModelResponse) {}
+  // UserType
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
 
   // Projects
-  // rpc GetProjectStatus(ProjectRequest) returns (GetProjectStatusResponse) {} // C2C-51
   rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse) {} // C2C-49
+  // rpc GetProjectStatus(ProjectRequest) returns (GetProjectStatusResponse) {} // C2C-51
 
-  // Project Runs
+  // ProjectType Runs
   // rpc GetProjectRun(stream ProjectRunRequest) returns (stream GetProjectRunResponse) {} // C2C-42, C2C-43
   // rpc CreateProjectRun(stream CreateProjectRunRequest) returns (stream CreateProjectRunResponse) {}
 
   // Models
   // rpc GetModelContact(ModelRunRequest) returns (GetModelContactResponse) {} // C2C-28
+  rpc CreateModel(CreateModelRequest) returns (CreateModelResponse) {}
 
   // Datasets
-  rpc CreateDataset(stream CreateDatasetRequest) returns (stream CreateDatasetResponse) {} // C2C-29, C2C-30, C2C-31
+  rpc CreateDataset(CreateDatasetRequest) returns (CreateDatasetResponse) {} // C2C-29, C2C-30, C2C-31
   // rpc GetDataset(stream GetDatasetRequest) returns (stream GetDatasetResponse) {} // C2C-35, C2C-36, C2C-37
   // rpc GetDatasetLineage(stream GetDatasetRequest) returns (stream GetDatasetLineageResponse) {} // C2C-39, C2C-40
   // rpc ModifyDataset(stream ModifyDatasetRequest) returns (stream ModifyDatasetResponse) {} // C2C-33
 }
 
 
-message PingRequest{
+// Health Ping
+message PingRequest {
   string who_i_am = 1;
 }
 
-// Health Response Object
-message PingResponse{
+message PingResponse {
   google.protobuf.Timestamp response_date = 1;
   bool is_happy = 2;
 }
 
 
-// Generic Request Objects
-message User {
-  string first_name = 1;
-  string last_name = 2;
+// Common Types
+message RunScheduleType {
+  string start = 1;
+  string end = 2;
+}
+
+
+// User Related
+message UserType {
+  string username = 1;
+  string email = 2;
+  string first_name = 3;
+  string last_name = 4;
+}
+
+message CreateUserRequest {
+  UserType user = 1;
+}
+
+message CreateUserResponse {
+  string created = 1;
+  string vertex_id = 2;
   string username = 3;
-  string email = 4;
 }
 
-message ProjectRequest {
-  oneof project {
-    string project_name = 1;
-    string vertex_id = 2;
-  }
-}
 
-message ProjectRunRequest {
-  ProjectRequest project = 1;
-  oneof project_run {
-    string run_name = 2;
-    string vertex_id = 3;
-  }
-}
-
-message ModelRunRequest {
-  ProjectRequest project = 1;
-  ProjectRunRequest project_run = 2;
-  oneof model_run {
-    string run_name = 3;
-    string vertex_id = 4;
-  }
-}
-
-message Model {
+// Project Related
+message ProjectScenarioType {
   string name = 1;
-  repeated User team = 2;
+  string description = 2;
 }
 
-message ModelRun {
+message ProjectSensitivityType {
+  string name = 1;
+  string description = 2;
+}
+
+message ProjectRunType{
+  string name = 1;
+  string description = 2;
+  repeated string scenarios = 3;
+  RunScheduleType schedule = 4;
+  // TODO: Refactor requirements
+  string requirements = 5;
+  repeated ModelRunType model_runs = 6;
+  repeated ModelRunEdgeType topology = 7;
+}
+
+message ProjectType {
+  string name = 1;
+  string full_name = 2;
+  UserType owner = 3;
+  repeated string assumptions = 4;
+  // TODO: Refactor requirements
+  string requirements = 5;
+  repeated ProjectScenarioType scenarios = 6;
+  repeated ProjectSensitivityType sensitivities = 7;
+  RunScheduleType schedule = 8;
+  repeated ProjectRunType project_runs = 9;
+}
+
+message GetProjectRequest {
+  oneof project_identifier {
+    string project_name = 1;
+    string project_vertex_id = 2;
+  }
+}
+
+message CreateProjectRequest {
+  ProjectType project = 1;
+}
+
+message CreateProjectResponse {
+  string created = 1;
+  string vertex_id = 2;
+  string project_name = 3;
+}
+
+message GetProjectRunRequest {
+  oneof project_identifier {
+    string project_name = 1;
+    string project_vertex_id = 2;
+  }
+  oneof project_run_identifier {
+    string project_run_name = 3;
+    string project_run_vertex_id = 4;
+  }
+}
+
+message GetProjectStatusResponse {
+}
+
+// Model Related
+message ScenarioMappingType {
+  string model_scenario = 1;
+  repeated string project_scenarios = 2;
+  string description = 3;
+}
+
+message ModelType {
+  string name = 1;
+  repeated UserType team = 2;
+  repeated string expected_scenarios = 3;
+  // TODO: Refactor requirements
+  string requirements = 4;
+  repeated ScenarioMappingType scenario_mapping = 5;
+}
+
+message ModelRunType {
   string model = 1;
   string config_source = 2;
   string version = 3;
-  string scenario = 4;
+  // TODO: Refactor requirements
+  string requirements = 4;
+  RunScheduleType schedule = 5;
 }
 
-enum VersionStatus {
+message ModelRunEdgeType {
+  string from_model = 1;
+  string to_model = 2;
+  string description = 3;
+  RunScheduleType schedule = 5;
+}
+
+message CreateModelRequest {
+  ModelType model = 1;
+}
+
+message CreateModelResponse {
+  string created = 1;
+  string vertex_id = 2;
+  string model_name = 3;
+}
+
+message CreateModelRunRequest {
+  oneof project_identifier {
+    string project_name = 1;
+    string project_vertex_id = 2;
+  }
+  oneof project_run_identifier {
+    string project_run_name = 3;
+    string project_run_vertex_id = 4;
+  }
+  oneof model_run_identifier {
+    string model_name = 5;
+    string model_run_vertex_id = 6;
+  }
+}
+
+// Dataset Related
+enum VersionStatusEnum {
   Current = 0;
   Expired = 1;
   Unresolved = 2;
 }
 
-message TemporalInfo {
+message TemporalInfoType {
   string extent = 1;
   string fidelity = 2;
-  map<string, google.protobuf.Value> other = 3;
+  // TODO: refactor later with mapping
+  string other = 3;
 }
 
-message SpatialInfo {
+message SpatialInfoType {
   string extent = 1;
   string fidelity = 2;
-  map<string, google.protobuf.Value> other = 3;
+  // TODO: Refactor later with mapping
+  string other = 3;
 }
 
-message SourceCode {
+message SourceCodeType {
   string location = 1;
   string branch = 2;
   string tag = 3;
   string image = 4;
 }
 
-message ESIFRepoFiles {
-  string url = 1;
-  repeated string ids = 4;
-  string dataset = 2;
-  string project = 3;
-  repeated string tags = 5;
-  string description = 6;
+// enum DatasetTypeEnum {
+//   Files = 0;
+//   Images = 1;
+//   Tables = 2;
+//   Views = 4;
+//   Streams = 5;
+//   Documents = 6;
+//   Graphs = 7;
+//   CustomType = 100;
+// }
+
+// enum DataSystemEnum {
+//   ESIFRepoAPI = 0;
+//   OEDI = 1;
+//   DOEDataFoundary = 2;
+//   Eagle = 3;
+//   Globus = 4;
+//   NetworkDrive = 5;
+//   AmazonS3 = 6;
+//   AzureBlob = 7;
+//   GoogleCloudStorage = 8;
+//   Trino = 9;
+//   PostgreSQL = 10;
+//   MySQL = 11;
+//   MongoDB = 12;
+//   DocumentDB = 13;
+//   Neptune = 14;
+//   Neo4j = 15;
+//   CustomSystem = 100;
+// }
+
+message DatasetLocationType {
+  // TODO: Refactor system by using enum
+  string system = 1;
+  string path = 2;
+  string description = 3;
+  // TODO: Refactor later with mapping
+  string extras = 4;
 }
 
-message Dataset {
+message DatasetType {
   string name = 1;
-  string version = 2;
-  VersionStatus version_status = 3;
-  string previous_version = 4;
-  string data_format = 5;
-  string schema_info = 6;
-  User registration_author = 7;
-  repeated int32 weather_years = 8;
-  repeated int32 model_years = 9;
-  repeated string units = 10;
-  TemporalInfo temporal_info = 11;
-  SpatialInfo spatial_info = 12;
-  repeated string scenarios = 13;
-  repeated string sensitivities = 14;
-  string description = 15;
-  SourceCode source_code = 16;
-  repeated string relevant_links = 17;
-  string comments = 18;
-  repeated string input_datasets = 19;
-
-  oneof one_of_location {
-    ESIFRepoFiles esif_repo_files = 20;
-  }
-
+  // TODO: Refactor type by using enum
+  string type = 2;
+  string version = 3;
+  // TODO: Refactor version_status by using enum
+  string version_status = 4;
+  string previous_version = 5;
+  DatasetLocationType location = 6;
+  string data_format = 7;
+  string schema_info = 8;
+  UserType registration_author = 9;
+  repeated int32 weather_years = 10;
+  repeated int32 model_years = 11;
+  repeated string units = 12;
+  TemporalInfoType temporal_info = 13;
+  SpatialInfoType spatial_info = 14;
+  repeated string scenarios = 15;
+  repeated string sensitivities = 16;
+  string description = 17;
+  SourceCodeType source_code = 18;
+  repeated string relevant_links = 19;
+  string comments = 20;
+  string resource_url = 21;
+  repeated string input_datasets = 22;
 }
 
-// CreateUser
-message CreateUserResponse{
-  string created = 1;
-  string vertex_id = 2;
-  User user = 3;
-}
-
-// CreateModel
-message CreateModelResponse{
-  string created = 1;
-  string vertex_id = 2;
-  string model_name = 3;
-}
-
-// GetProjectStatus
-message GetProjectStatusResponse{
-
-}
-
-// CreateProject
-message CreateProjectRequest{
-  message ProjectRun{
-    string name = 1;
-    repeated ModelRun model_runs = 2;
-    repeated string topology = 3;
-  }
-  string name = 1;
-  User owner = 2;
-  repeated ProjectRun project_runs = 3;
-}
-
-message CreateProjectResponse{
-  string created = 1;
-  string vertex_id = 2;
-  string project_name = 3;
-}
-
-// CreateDataset
 message CreateDatasetRequest {
-  string project_run = 1;
-  string model = 2;
-  repeated Dataset datasets = 3;
+  string project_name = 1;
+  string project_run_name = 2;
+  string active_model_name = 3;
+  DatasetType dataset = 4;
 }
 
 message CreateDatasetResponse {
@@ -265,9 +366,6 @@ message CreateDatasetResponse {
 
 
 // message GetProjectRunResponse{
-  
+
 
 // }
-
-
-
