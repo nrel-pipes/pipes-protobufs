@@ -88,7 +88,7 @@ message ProjectRunType{
   string description = 2;
   repeated string scenarios = 3;
   RunScheduleType schedule = 4;
-  // TODO: Refactor requirements
+  // TODO: refactor requirements using mapping
   string requirements = 5;
   repeated ModelRunType model_runs = 6;
   repeated ModelRunEdgeType topology = 7;
@@ -99,7 +99,7 @@ message ProjectType {
   string full_name = 2;
   UserType owner = 3;
   repeated string assumptions = 4;
-  // TODO: Refactor requirements
+  // TODO: refactor requirements using mapping
   string requirements = 5;
   repeated ProjectScenarioType scenarios = 6;
   repeated ProjectSensitivityType sensitivities = 7;
@@ -149,7 +149,7 @@ message ModelType {
   string name = 1;
   repeated UserType team = 2;
   repeated string expected_scenarios = 3;
-  // TODO: Refactor requirements
+  // TODO: refactor requirements using mapping
   string requirements = 4;
   repeated ScenarioMappingType scenario_mapping = 5;
 }
@@ -158,7 +158,7 @@ message ModelRunType {
   string model = 1;
   string config_source = 2;
   string version = 3;
-  // TODO: Refactor requirements
+  // TODO: refactor requirements using mapping
   string requirements = 4;
   RunScheduleType schedule = 5;
 }
@@ -196,23 +196,17 @@ message CreateModelRunRequest {
 }
 
 // Dataset Related
-enum VersionStatusEnum {
-  Current = 0;
-  Expired = 1;
-  Unresolved = 2;
-}
-
 message TemporalInfoType {
   string extent = 1;
   string fidelity = 2;
-  // TODO: refactor later with mapping
+  // TODO: refactor other using mapping
   string other = 3;
 }
 
 message SpatialInfoType {
   string extent = 1;
   string fidelity = 2;
-  // TODO: Refactor later with mapping
+  // TODO: refactor requirements using mapping
   string other = 3;
 }
 
@@ -223,71 +217,51 @@ message SourceCodeType {
   string image = 4;
 }
 
-// enum DatasetTypeEnum {
-//   Files = 0;
-//   Images = 1;
-//   Tables = 2;
-//   Views = 4;
-//   Streams = 5;
-//   Documents = 6;
-//   Graphs = 7;
-//   CustomType = 100;
-// }
-
-// enum DataSystemEnum {
-//   ESIFRepoAPI = 0;
-//   OEDI = 1;
-//   DOEDataFoundary = 2;
-//   Eagle = 3;
-//   Globus = 4;
-//   NetworkDrive = 5;
-//   AmazonS3 = 6;
-//   AzureBlob = 7;
-//   GoogleCloudStorage = 8;
-//   Trino = 9;
-//   PostgreSQL = 10;
-//   MySQL = 11;
-//   MongoDB = 12;
-//   DocumentDB = 13;
-//   Neptune = 14;
-//   Neo4j = 15;
-//   CustomSystem = 100;
-// }
-
-message DatasetLocationType {
-  // TODO: Refactor system by using enum
+message ESIFRepoFilesType {
   string system = 1;
-  string path = 2;
-  string description = 3;
-  // TODO: Refactor later with mapping
-  string extras = 4;
+  string url = 2;
+  string project = 3;
+  string dataset = 4;
+  string keyword = 5;
+  repeated string tag = 6;
+  repeated string classification = 7;
+  repeated string ids = 8;
+  string description = 9;
+}
+
+message AmazonS3FilesType {
+  string system = 1;
+  string bucket = 2;
+  repeated string keys = 3;
+  string description = 4;
 }
 
 message DatasetType {
   string name = 1;
-  // TODO: Refactor type by using enum
   string type = 2;
   string version = 3;
-  // TODO: Refactor version_status by using enum
   string version_status = 4;
   string previous_version = 5;
-  DatasetLocationType location = 6;
-  string data_format = 7;
-  string schema_info = 8;
-  UserType registration_author = 9;
-  repeated int32 weather_years = 10;
-  repeated int32 model_years = 11;
-  repeated string units = 12;
-  TemporalInfoType temporal_info = 13;
-  SpatialInfoType spatial_info = 14;
-  repeated string scenarios = 15;
-  repeated string sensitivities = 16;
-  string description = 17;
-  SourceCodeType source_code = 18;
-  repeated string relevant_links = 19;
-  string comments = 20;
-  string resource_url = 21;
-  repeated string input_datasets = 22;
+  string data_format = 6;
+  string schema_info = 7;
+  UserType registration_author = 8;
+  repeated int32 weather_years = 9;
+  repeated int32 model_years = 10;
+  repeated string units = 11;
+  TemporalInfoType temporal_info = 12;
+  SpatialInfoType spatial_info = 13;
+  repeated string scenarios = 14;
+  repeated string sensitivities = 15;
+  string description = 16;
+  SourceCodeType source_code = 17;
+  repeated string relevant_links = 18;
+  string comments = 19;
+  string resource_url = 20;
+  repeated string input_datasets = 21;
+  oneof one_of_location {
+    ESIFRepoFilesType esif_repo_files = 22;
+    AmazonS3FilesType amazon_s3_files = 23;
+  }
 }
 
 message CreateDatasetRequest {
