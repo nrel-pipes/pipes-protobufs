@@ -12,121 +12,269 @@ service C2C{
   // Health
   rpc Ping(PingRequest) returns (PingResponse) {}
 
-  // Generic
-  rpc CreateUser(User) returns (CreateUserResponse) {}
-  rpc CreateModel(Model) returns (CreateModelResponse) {}
+  // UserType
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
 
   // Projects
-  // rpc GetProjectStatus(ProjectRequest) returns (GetProjectStatusResponse) {} // C2C-51
   rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse) {} // C2C-49
+  // rpc GetProjectStatus(ProjectRequest) returns (GetProjectStatusResponse) {} // C2C-51
 
-  // Project Runs
+  // ProjectType Runs
   // rpc GetProjectRun(stream ProjectRunRequest) returns (stream GetProjectRunResponse) {} // C2C-42, C2C-43
   // rpc CreateProjectRun(stream CreateProjectRunRequest) returns (stream CreateProjectRunResponse) {}
 
   // Models
   // rpc GetModelContact(ModelRunRequest) returns (GetModelContactResponse) {} // C2C-28
+  rpc CreateModel(CreateModelRequest) returns (CreateModelResponse) {}
 
   // Datasets
-  // rpc CheckinDataset(stream CheckinDatasetRequest) returns (stream CheckinDatasetResponse) {} // C2C-29, C2C-30, C2C-31
+  rpc CreateDataset(CreateDatasetRequest) returns (CreateDatasetResponse) {} // C2C-29, C2C-30, C2C-31
   // rpc GetDataset(stream GetDatasetRequest) returns (stream GetDatasetResponse) {} // C2C-35, C2C-36, C2C-37
   // rpc GetDatasetLineage(stream GetDatasetRequest) returns (stream GetDatasetLineageResponse) {} // C2C-39, C2C-40
   // rpc ModifyDataset(stream ModifyDatasetRequest) returns (stream ModifyDatasetResponse) {} // C2C-33
 }
 
 
-message PingRequest{
+// Health Ping
+message PingRequest {
   string who_i_am = 1;
 }
 
-// Health Response Object
-message PingResponse{
+message PingResponse {
   google.protobuf.Timestamp response_date = 1;
   bool is_happy = 2;
 }
 
 
-// Generic Request Objects
-message User{
-  string first_name = 1;
-  string last_name = 2;
+// Common Types
+message RunScheduleType {
+  string start = 1;
+  string end = 2;
+}
+
+
+// User Related
+message UserType {
+  string username = 1;
+  string email = 2;
+  string first_name = 3;
+  string last_name = 4;
+}
+
+message CreateUserRequest {
+  UserType user = 1;
+}
+
+message CreateUserResponse {
+  string created = 1;
+  string vertex_id = 2;
   string username = 3;
-  string email = 4;
 }
 
-message Model{
+
+// Project Related
+message ProjectScenarioType {
   string name = 1;
-  repeated User team = 2;
+  string description = 2;
 }
 
-message ModelRun{
+message ProjectSensitivityType {
+  string name = 1;
+  string description = 2;
+}
+
+message ProjectRunType{
+  string name = 1;
+  string description = 2;
+  repeated string scenarios = 3;
+  RunScheduleType schedule = 4;
+  // TODO: refactor requirements using mapping
+  string requirements = 5;
+  repeated ModelRunType model_runs = 6;
+  repeated ModelRunEdgeType topology = 7;
+}
+
+message ProjectType {
+  string name = 1;
+  string full_name = 2;
+  UserType owner = 3;
+  repeated string assumptions = 4;
+  // TODO: refactor requirements using mapping
+  string requirements = 5;
+  repeated ProjectScenarioType scenarios = 6;
+  repeated ProjectSensitivityType sensitivities = 7;
+  RunScheduleType schedule = 8;
+  repeated ProjectRunType project_runs = 9;
+}
+
+message GetProjectRequest {
+  oneof project_identifier {
+    string project_name = 1;
+    string project_vertex_id = 2;
+  }
+}
+
+message CreateProjectRequest {
+  ProjectType project = 1;
+}
+
+message CreateProjectResponse {
+  string created = 1;
+  string vertex_id = 2;
+  string project_name = 3;
+}
+
+message GetProjectRunRequest {
+  oneof project_identifier {
+    string project_name = 1;
+    string project_vertex_id = 2;
+  }
+  oneof project_run_identifier {
+    string project_run_name = 3;
+    string project_run_vertex_id = 4;
+  }
+}
+
+message GetProjectStatusResponse {
+}
+
+// Model Related
+message ScenarioMappingType {
+  string model_scenario = 1;
+  repeated string project_scenarios = 2;
+  string description = 3;
+}
+
+message ModelType {
+  string name = 1;
+  repeated UserType team = 2;
+  repeated string expected_scenarios = 3;
+  // TODO: refactor requirements using mapping
+  string requirements = 4;
+  repeated ScenarioMappingType scenario_mapping = 5;
+}
+
+message ModelRunType {
   string model = 1;
   string config_source = 2;
   string version = 3;
-  string scenario = 4;
+  // TODO: refactor requirements using mapping
+  string requirements = 4;
+  RunScheduleType schedule = 5;
 }
 
-message ProjectRequest{
-  oneof project {
-    string project_name = 1;
-    string vertex_id = 2;
-  }
+message ModelRunEdgeType {
+  string from_model = 1;
+  string to_model = 2;
+  string description = 3;
+  RunScheduleType schedule = 5;
 }
 
-
-message ProjectRunRequest{
-  ProjectRequest project = 1;
-  oneof project_run {
-    string run_name = 2;
-    string vertex_id = 3;
-  }
+message CreateModelRequest {
+  ModelType model = 1;
 }
 
-
-message ModelRunRequest{
-  ProjectRequest project = 1;
-  ProjectRunRequest project_run = 2;
-  oneof model_run {
-    string run_name = 3;
-    string vertex_id = 4;
-  }
-}
-
-// CreateUser
-message CreateUserResponse{
-  string created = 1;
-  string vertex_id = 2;
-  User user = 3;
-}
-
-// CreateModel
-message CreateModelResponse{
+message CreateModelResponse {
   string created = 1;
   string vertex_id = 2;
   string model_name = 3;
 }
 
-// GetProjectStatus
-message GetProjectStatusResponse{
-
-}
-
-// CreateProject
-message CreateProjectRequest{
-  message ProjectRun{
-    string name = 1;
-    repeated ModelRun model_runs = 2;
-    repeated string topology = 3;
+message CreateModelRunRequest {
+  oneof project_identifier {
+    string project_name = 1;
+    string project_vertex_id = 2;
   }
-  string name = 1;
-  User owner = 2;
-  repeated ProjectRun project_runs = 3;
+  oneof project_run_identifier {
+    string project_run_name = 3;
+    string project_run_vertex_id = 4;
+  }
+  oneof model_run_identifier {
+    string model_name = 5;
+    string model_run_vertex_id = 6;
+  }
 }
 
-message CreateProjectResponse{
+// Dataset Related
+message TemporalInfoType {
+  string extent = 1;
+  string fidelity = 2;
+  // TODO: refactor other using mapping
+  string other = 3;
+}
+
+message SpatialInfoType {
+  string extent = 1;
+  string fidelity = 2;
+  // TODO: refactor requirements using mapping
+  string other = 3;
+}
+
+message SourceCodeType {
+  string location = 1;
+  string branch = 2;
+  string tag = 3;
+  string image = 4;
+}
+
+message ESIFRepoFilesType {
+  string system = 1;
+  string url = 2;
+  string project = 3;
+  string dataset = 4;
+  string keyword = 5;
+  repeated string tag = 6;
+  repeated string classification = 7;
+  repeated string ids = 8;
+  string description = 9;
+}
+
+message AmazonS3FilesType {
+  string system = 1;
+  string bucket = 2;
+  repeated string keys = 3;
+  string description = 4;
+}
+
+message DatasetType {
+  string name = 1;
+  string type = 2;
+  string version = 3;
+  string version_status = 4;
+  string previous_version = 5;
+  string data_format = 6;
+  string schema_info = 7;
+  UserType registration_author = 8;
+  repeated int32 weather_years = 9;
+  repeated int32 model_years = 10;
+  repeated string units = 11;
+  TemporalInfoType temporal_info = 12;
+  SpatialInfoType spatial_info = 13;
+  repeated string scenarios = 14;
+  repeated string sensitivities = 15;
+  string description = 16;
+  SourceCodeType source_code = 17;
+  repeated string relevant_links = 18;
+  string comments = 19;
+  string resource_url = 20;
+  repeated string input_datasets = 21;
+  oneof one_of_location {
+    ESIFRepoFilesType esif_repo_files = 22;
+    AmazonS3FilesType amazon_s3_files = 23;
+  }
+}
+
+message CreateDatasetRequest {
+  string project_name = 1;
+  string project_run_name = 2;
+  string active_model_name = 3;
+  DatasetType dataset = 4;
+}
+
+message CreateDatasetResponse {
   string created = 1;
   string vertex_id = 2;
-  string project_name = 3;
+  string dataset_name = 3;
 }
 
 
@@ -192,9 +340,6 @@ message CreateProjectResponse{
 
 
 // message GetProjectRunResponse{
-  
+
 
 // }
-
-
-
