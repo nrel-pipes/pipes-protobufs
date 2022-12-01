@@ -12,11 +12,15 @@ service C2C{
   // Health
   rpc Ping(PingRequest) returns (PingResponse) {}
 
+  // Utility
+  rpc ResetGraph(ResetRequest) returns (ResetResponse) {}
+
   // UserType
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
 
   // Projects
-  rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse) {} // C2C-49
+  // rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse) {} // C2C-49
+  rpc InitializeProjectFromToml(ProjectTomlRequest) returns (ProjectTomlResponse) {} // C2C-49
   // rpc GetProjectStatus(ProjectRequest) returns (GetProjectStatusResponse) {} // C2C-51
 
   // ProjectType Runs
@@ -45,13 +49,12 @@ message PingResponse {
   bool is_happy = 2;
 }
 
+// Utility
+message ResetRequest {}
 
-// Common Types
-message RunScheduleType {
-  string start = 1;
-  string end = 2;
+message ResetResponse {
+  bool reset_success = 1;
 }
-
 
 // User Related
 message UserType {
@@ -71,103 +74,20 @@ message CreateUserResponse {
   string username = 3;
 }
 
-
-// Project Related
-message ProjectScenarioType {
-  string name = 1;
-  string description = 2;
+// Project Toml Initialization
+message ProjectTomlRequest {
+  string body = 1;
 }
 
-message ProjectSensitivityType {
-  string name = 1;
-  string description = 2;
-}
-
-message ProjectRunType{
-  string name = 1;
-  string description = 2;
-  repeated string scenarios = 3;
-  RunScheduleType schedule = 4;
-  // TODO: refactor requirements using mapping
-  string requirements = 5;
-  repeated ModelRunType model_runs = 6;
-  repeated ModelRunEdgeType topology = 7;
-}
-
-message ProjectType {
-  string name = 1;
-  string full_name = 2;
-  UserType owner = 3;
-  repeated string assumptions = 4;
-  // TODO: refactor requirements using mapping
-  string requirements = 5;
-  repeated ProjectScenarioType scenarios = 6;
-  repeated ProjectSensitivityType sensitivities = 7;
-  RunScheduleType schedule = 8;
-  repeated ProjectRunType project_runs = 9;
-}
-
-message GetProjectRequest {
-  oneof project_identifier {
-    string project_name = 1;
-    string project_vertex_id = 2;
-  }
-}
-
-message CreateProjectRequest {
-  ProjectType project = 1;
-}
-
-message CreateProjectResponse {
-  string created = 1;
-  string vertex_id = 2;
-  string project_name = 3;
-}
-
-message GetProjectRunRequest {
-  oneof project_identifier {
-    string project_name = 1;
-    string project_vertex_id = 2;
-  }
-  oneof project_run_identifier {
-    string project_run_name = 3;
-    string project_run_vertex_id = 4;
-  }
-}
-
-message GetProjectStatusResponse {
+message ProjectTomlResponse {
+  string project_id = 1;
+  bool created = 2;
 }
 
 // Model Related
-message ScenarioMappingType {
-  string model_scenario = 1;
-  repeated string project_scenarios = 2;
-  string description = 3;
-}
-
 message ModelType {
   string name = 1;
   repeated UserType team = 2;
-  repeated string expected_scenarios = 3;
-  // TODO: refactor requirements using mapping
-  string requirements = 4;
-  repeated ScenarioMappingType scenario_mapping = 5;
-}
-
-message ModelRunType {
-  string model = 1;
-  string config_source = 2;
-  string version = 3;
-  // TODO: refactor requirements using mapping
-  string requirements = 4;
-  RunScheduleType schedule = 5;
-}
-
-message ModelRunEdgeType {
-  string from_model = 1;
-  string to_model = 2;
-  string description = 3;
-  RunScheduleType schedule = 5;
 }
 
 message CreateModelRequest {
@@ -178,21 +98,6 @@ message CreateModelResponse {
   string created = 1;
   string vertex_id = 2;
   string model_name = 3;
-}
-
-message CreateModelRunRequest {
-  oneof project_identifier {
-    string project_name = 1;
-    string project_vertex_id = 2;
-  }
-  oneof project_run_identifier {
-    string project_run_name = 3;
-    string project_run_vertex_id = 4;
-  }
-  oneof model_run_identifier {
-    string model_name = 5;
-    string model_run_vertex_id = 6;
-  }
 }
 
 // Dataset Related
