@@ -87,7 +87,7 @@ message ProjectTomlResponse {
 // Model Related
 message ModelType {
   string name = 1;
-  repeated UserType team = 2;
+  repeated UserType members = 2;
 }
 
 message CreateModelRequest {
