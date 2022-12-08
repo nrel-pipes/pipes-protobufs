@@ -31,6 +31,8 @@ service C2C{
   // Models
   // rpc GetModelContact(ModelRunRequest) returns (GetModelContactResponse) {} // C2C-28
   rpc CreateModel(CreateModelRequest) returns (CreateModelResponse) {}
+  rpc CreateModelRun(CreateModelRunRequest) returns (CreateModelRunResponse) {}
+  rpc ListModels(ListModelsRequest) returns (ListModelsResponse) {}
 
   // Datasets
   rpc CreateDataset(CreateDatasetRequest) returns (CreateDatasetResponse) {} // C2C-29, C2C-30, C2C-31
@@ -122,151 +124,37 @@ message CreateModelResponse {
   string model_name = 3;
 }
 
-// Dataset Related
-message TemporalInfoType {
-  string extent = 1;
-  string fidelity = 2;
-  // TODO: refactor other using mapping
-  string other = 3;
+message CreateModelRunRequest {
+  string project_name = 1;
+  string project_run_name =2;
+  string model_name = 3;
+  string body = 4;
 }
 
-message SpatialInfoType {
-  string extent = 1;
-  string fidelity = 2;
-  // TODO: refactor requirements using mapping
-  string other = 3;
+message CreateModelRunResponse {
+  string vertex_id = 1;
+  string model_run_name = 2;
 }
 
-message SourceCodeType {
-  string location = 1;
-  string branch = 2;
-  string tag = 3;
-  string image = 4;
-}
-
-message ESIFRepoFilesType {
-  string system = 1;
-  string url = 2;
-  string project = 3;
-  string dataset = 4;
-  string keyword = 5;
-  repeated string tag = 6;
-  repeated string classification = 7;
-  repeated string ids = 8;
-  string description = 9;
-}
-
-message AmazonS3FilesType {
-  string system = 1;
-  string bucket = 2;
-  repeated string keys = 3;
-  string description = 4;
-}
-
-message DatasetType {
-  string name = 1;
-  string type = 2;
-  string version = 3;
-  string version_status = 4;
-  string previous_version = 5;
-  string data_format = 6;
-  string schema_info = 7;
-  UserType registration_author = 8;
-  repeated int32 weather_years = 9;
-  repeated int32 model_years = 10;
-  repeated string units = 11;
-  TemporalInfoType temporal_info = 12;
-  SpatialInfoType spatial_info = 13;
-  repeated string scenarios = 14;
-  repeated string sensitivities = 15;
-  string description = 16;
-  SourceCodeType source_code = 17;
-  repeated string relevant_links = 18;
-  string comments = 19;
-  string resource_url = 20;
-  repeated string input_datasets = 21;
-  oneof one_of_location {
-    ESIFRepoFilesType esif_repo_files = 22;
-    AmazonS3FilesType amazon_s3_files = 23;
-  }
-}
-
-message CreateDatasetRequest {
+message ListModelsRequest {
   string project_name = 1;
   string project_run_name = 2;
-  string active_model_name = 3;
-  DatasetType dataset = 4;
+}
+
+message ListModelsResponse {
+  string body = 1;
+}
+
+// Dataset Related
+message CreateDatasetRequest {
+  string project_name = 1;
+  string project_run_name =2;
+  string model_name = 3;
+  string model_run_name = 4;
+  string body = 5;
 }
 
 message CreateDatasetResponse {
-  string created = 1;
-  string vertex_id = 2;
-  string dataset_name = 3;
+  string vertex_id = 1;
+  string dataset_name = 2;
 }
-
-
-// Other
-// message CreateProjectRunRequest{
-//   ProjectRequest project = 1;
-//   string project_run_name = 2;
-// }
-
-
-// message GetDatasetRequest{
-//   ModelRunRequest model_run = 1;
-//   string dataset_name = 2;
-//   string vertex_id = 3;
-// }
-
-
-// message DatasetDetails{
-//   string filesystem = 1;
-//   string filepath = 2;
-// }
-
-
-// message CheckinDatasetRequest{
-//   ModelRunRequest model_run = 1;
-//   DatasetDetails details = 2;
-// }
-
-
-// message ModifyDatasetRequest{
-//   ModelRunRequest model_run = 1;
-//   string dataset_name = 2;
-//   string vertex_id = 3;
-//   DatasetDetails details = 4;
-// }
-
-
-// // Specific Responses
-// message GetModelContactResponse{
-
-// }
-
-
-// message CheckinDatasetResponse{
-
-// }
-
-
-// message GetDatasetResponse{
-//   string dataset_name = 1;
-//   string vertex_id = 2;
-// }
-
-
-// message GetDatasetLineageResponse{
-
-// }
-
-
-// message ModifyDatasetResponse{
-
-// }
-
-
-// message GetProjectRunResponse{
-
-
-// }
