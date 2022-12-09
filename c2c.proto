@@ -17,7 +17,6 @@ service C2C{
 
   // Projects
   rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse) {} // C2C-49
-  // rpc GetProjectStatus(ProjectRequest) returns (GetProjectStatusResponse) {} // C2C-51
 
   // ProjectType Runs
   // rpc GetProjectRun(stream ProjectRunRequest) returns (stream GetProjectRunResponse) {} // C2C-42, C2C-43
@@ -26,6 +25,7 @@ service C2C{
   // Models
   // rpc GetModelContact(ModelRunRequest) returns (GetModelContactResponse) {} // C2C-28
   rpc CreateModel(CreateModelRequest) returns (CreateModelResponse) {}
+  rpc GetProjectsStatusForModel(ProjectsStatusForModelRequest) returns (ProjectsStatusResponse) {} // C2C-51
 
   // Datasets
   rpc CreateDataset(CreateDatasetRequest) returns (CreateDatasetResponse) {} // C2C-29, C2C-30, C2C-31
@@ -112,6 +112,17 @@ message GetProjectRequest {
     string project_name = 1;
     string project_vertex_id = 2;
   }
+}
+
+// Projects Status for Model
+
+message ProjectsStatusForModelRequest {
+  string model_name = 1;
+}
+
+message ProjectsStatusResponse {
+  string projects = 1;
+  string project_runs = 2;
 }
 
 message CreateProjectRequest {
