@@ -19,10 +19,12 @@ service PIPES{
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
 
   // Projects
+
   // rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse) {} // C2C-49
   rpc InitializeProjectFromToml(ProjectTomlRequest) returns (ProjectTomlResponse) {} // C2C-49
   // rpc GetProjectStatus(ProjectRequest) returns (GetProjectStatusResponse) {} // C2C-51
   rpc GetProjectOwner(ProjectContext) returns (ProjectOwnerResponse) {}
+
 
   // ProjectType Runs
   // rpc GetProjectRun(stream ProjectRunRequest) returns (stream GetProjectRunResponse) {} // C2C-42, C2C-43
@@ -90,6 +92,18 @@ message CreateUserResponse {
   string created = 1;
   string vertex_id = 2;
   string username = 3;
+}
+
+
+// Projects Status for Model
+
+message ProjectsStatusForModelRequest {
+  string model_name = 1;
+}
+
+message ProjectsStatusResponse {
+  string projects = 1;
+  string project_runs = 2;
 }
 
 // Project Toml Initialization
