@@ -35,6 +35,7 @@ service PIPES{
   rpc CreateModel(CreateModelRequest) returns (CreateModelResponse) {}
   rpc CreateModelRun(CreateModelRunRequest) returns (CreateModelRunResponse) {}
   rpc ListModels(ListModelsRequest) returns (ListModelsResponse) {}
+  rpc GetProjectsStatusForModel(ProjectsStatusForModelRequest) returns (ProjectsStatusResponse) {} // C2C-51
 
   // Datasets
   rpc CreateDataset(CreateDatasetRequest) returns (CreateDatasetResponse) {} // C2C-29, C2C-30, C2C-31
