@@ -1,12 +1,12 @@
 syntax = "proto3";
 
-package c2c;
+package pipes;
 import "google/protobuf/timestamp.proto";
 //import "google/protobuf/wrappers.proto";
 
 
-service C2C{
-  // C2C RPCs
+service PIPES{
+  // PIPES RPCs
   //
 
   // Health
