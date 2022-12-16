@@ -17,6 +17,7 @@ service PIPES{
 
   // UserType
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
+  rpc GetUserContext(UserContextRequest) returns (UserContextResponse) {}
 
   // Projects
 
@@ -93,6 +94,15 @@ message CreateUserResponse {
   string created = 1;
   string vertex_id = 2;
   string username = 3;
+}
+
+message UserContextRequest {
+  string user_name = 1;
+  string email = 2;
+}
+
+message UserContextResponse {
+  string context_items = 1;
 }
 
 
