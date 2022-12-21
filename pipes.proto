@@ -87,7 +87,7 @@ message Project {
 }
 
 message ProjectResponse {
-  Project project = 1;
+  string body = 1;
 }
 
 // User Related
