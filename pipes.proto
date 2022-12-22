@@ -69,13 +69,29 @@ message ProjectContext {
 }
 
 message ProjectRunContext {
-  ProjectContext project_context = 1;
+  string project_name = 1;
   string project_run_name = 2;
 }
 
 message ModelContext {
-  ProjectRunContext project_run_context = 1;
-  string model_name = 2;
+  string project_name = 1;
+  string project_run_name = 2;
+  string model_name = 3;
+}
+
+message ModelRunContext {
+  string project_name = 1;
+  string project_run_name = 2;
+  string model_name = 3;
+  string model_run_name = 4;
+}
+
+message DatasetContext {
+  string project_name = 1;
+  string project_run_name =2;
+  string model_name = 3;
+  string model_run_name = 4;
+  string dataset_name = 5;
 }
 
 // User Related
@@ -173,14 +189,6 @@ message CreateDatasetRequest {
 message CreateDatasetResponse {
   string vertex_id = 1;
   string dataset_name = 2;
-}
-
-message DatasetContext {
-  string project_name = 1;
-  string project_run_name =2;
-  string model_name = 3;
-  string model_run_name = 4;
-  string dataset_name = 5;
 }
 
 message DatasetOwnerResponse {
