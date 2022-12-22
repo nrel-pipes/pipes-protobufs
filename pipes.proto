@@ -40,6 +40,7 @@ service PIPES{
   // Datasets
   rpc CreateDataset(CreateDatasetRequest) returns (CreateDatasetResponse) {} // C2C-29, C2C-30, C2C-31
   rpc GetDatasetOwner(DatasetContext) returns (DatasetOwnerResponse) {} // C2C-37
+  rpc GetDatasetLocation(DatasetContext) returns (DatasetLocationResponse) {} // C2C-36
   // rpc GetDataset(stream GetDatasetRequest) returns (stream GetDatasetResponse) {} // C2C-35, C2C-36
   // rpc GetDatasetLineage(stream GetDatasetRequest) returns (stream GetDatasetLineageResponse) {} // C2C-39, C2C-40
   // rpc ModifyDataset(stream ModifyDatasetRequest) returns (stream ModifyDatasetResponse) {} // C2C-33
@@ -186,4 +187,8 @@ message DatasetContext {
 message DatasetOwnerResponse {
   string vertex_id = 1;
   string dataset_owner = 2;
+}
+
+message DatasetLocationResponse{
+  string body = 1;
 }
