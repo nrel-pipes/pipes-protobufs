@@ -34,12 +34,14 @@ service PIPES{
   // rpc GetModelContact(ModelRunRequest) returns (GetModelContactResponse) {} // C2C-28
   rpc CreateModel(CreateModelRequest) returns (CreateModelResponse) {}
   rpc CreateModelRun(CreateModelRunRequest) returns (CreateModelRunResponse) {}
-  rpc ListModels(ListModelsRequest) returns (ListModelsResponse) {}
+  rpc ListModels(ModelRunContext) returns (ListModelsResponse) {}
   rpc GetProjectsStatusForModel(ProjectsStatusForModelRequest) returns (ProjectsStatusResponse) {} // C2C-51
 
   // Datasets
   rpc CreateDataset(CreateDatasetRequest) returns (CreateDatasetResponse) {} // C2C-29, C2C-30, C2C-31
+  rpc ListDatasets(ModelRunContext) returns (ListDatasetsResponse) {} // C2C-35
   rpc GetDatasetOwner(DatasetContext) returns (DatasetOwnerResponse) {} // C2C-37
+  rpc GetDatasetLocation(DatasetContext) returns (DatasetLocationResponse) {} // C2C-36
   rpc ListDatasets(ModelRunContext) returns (ListDatasetsResponse) {} // C2C-35
   // rpc GetDataset(GetDatasetRequest) returns (GetDatasetResponse) {} // C2C-36
   // rpc GetDatasetLineage(stream GetDatasetRequest) returns (stream GetDatasetLineageResponse) {} // C2C-39, C2C-40
@@ -75,24 +77,8 @@ message ProjectRunContext {
 }
 
 message ModelContext {
-  string project_name = 1;
-  string project_run_name = 2;
-  string model_name = 3;
-}
-
-message ModelRunContext {
-  string project_name = 1;
-  string project_run_name = 2;
-  string model_name = 3;
-  string model_run_name = 4;
-}
-
-message DatasetContext {
-  string project_name = 1;
-  string project_run_name =2;
-  string model_name = 3;
-  string model_run_name = 4;
-  string dataset_name = 5;
+  ProjectRunContext project_run_context = 1;
+  string model_name = 2;
 }
 
 // User Related
@@ -199,11 +185,15 @@ message CreateDatasetResponse {
   string dataset_name = 2;
 }
 
+message DatasetContext {
+  string project_name = 1;
+  string project_run_name =2;
+  string model_name = 3;
+  string model_run_name = 4;
+  string dataset_name = 5;
+}
+
 message DatasetOwnerResponse {
   string vertex_id = 1;
   string dataset_owner = 2;
-}
-
-message ListDatasetsResponse {
-  string body = 1;
 }
