@@ -39,7 +39,7 @@ service PIPES{
 
   // Datasets
   rpc CreateDataset(CreateDatasetRequest) returns (CreateDatasetResponse) {} // C2C-29, C2C-30, C2C-31
-  rpc ListDatasets(ListDatasetsRequest) returns (ListDatasetsResponse) {} // C2C-35
+  rpc ListDatasets(ModelRunContext) returns (ListDatasetsResponse) {} // C2C-35
   // rpc GetDataset(GetDatasetRequest) returns (GetDatasetResponse) {} // C2C-36, C2C-37
   // rpc GetDatasetLineage(stream GetDatasetRequest) returns (stream GetDatasetLineageResponse) {} // C2C-39, C2C-40
   // rpc ModifyDataset(stream ModifyDatasetRequest) returns (stream ModifyDatasetResponse) {} // C2C-33
@@ -69,13 +69,21 @@ message ProjectContext {
 }
 
 message ProjectRunContext {
-  ProjectContext project_context = 1;
+  string project_name = 1;
   string project_run_name = 2;
 }
 
 message ModelContext {
-  ProjectRunContext project_run_context = 1;
-  string model_name = 2;
+  string project_name = 1;
+  string project_run_name = 2;
+  string model_name = 3;
+}
+
+message ModelRunContext {
+  string project_name = 1;
+  string project_run_name = 2;
+  string model_name = 3;
+  string model_run_name = 4;
 }
 
 // User Related
@@ -152,13 +160,6 @@ message CreateModelRunResponse {
   string model_run_name = 2;
 }
 
-message ModelRunContext {
-  string project_name = 1;
-  string project_run_name = 2;
-  string model_name = 3;
-  string model_run_name = 4;
-}
-
 message ListModelsRequest {
   string project_name = 1;
   string project_run_name = 2;
@@ -180,10 +181,6 @@ message CreateDatasetRequest {
 message CreateDatasetResponse {
   string vertex_id = 1;
   string dataset_name = 2;
-}
-
-message ListDatasetsRequest {
-  ModelRunContext model_run = 1;
 }
 
 message ListDatasetsResponse {
