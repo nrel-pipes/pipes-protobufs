@@ -40,7 +40,8 @@ service PIPES{
   // Datasets
   rpc CreateDataset(CreateDatasetRequest) returns (CreateDatasetResponse) {} // C2C-29, C2C-30, C2C-31
   rpc GetDatasetOwner(DatasetContext) returns (DatasetOwnerResponse) {} // C2C-37
-  // rpc GetDataset(stream GetDatasetRequest) returns (stream GetDatasetResponse) {} // C2C-35, C2C-36
+  rpc ListDatasets(ModelRunContext) returns (ListDatasetsResponse) {} // C2C-35
+  // rpc GetDataset(GetDatasetRequest) returns (GetDatasetResponse) {} // C2C-36
   // rpc GetDatasetLineage(stream GetDatasetRequest) returns (stream GetDatasetLineageResponse) {} // C2C-39, C2C-40
   // rpc ModifyDataset(stream ModifyDatasetRequest) returns (stream ModifyDatasetResponse) {} // C2C-33
 }
@@ -168,6 +169,13 @@ message CreateModelRunResponse {
   string model_run_name = 2;
 }
 
+message ModelRunContext {
+  string project_name = 1;
+  string project_run_name = 2;
+  string model_name = 3;
+  string model_run_name = 4;
+}
+
 message ListModelsRequest {
   string project_name = 1;
   string project_run_name = 2;
@@ -194,4 +202,8 @@ message CreateDatasetResponse {
 message DatasetOwnerResponse {
   string vertex_id = 1;
   string dataset_owner = 2;
+}
+
+message ListDatasetsResponse {
+  string body = 1;
 }
