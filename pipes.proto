@@ -197,6 +197,10 @@ message DatasetOwnerResponse {
   string dataset_owner = 2;
 }
 
+message DatasetLocationResponse {
+  string body = 1;
+}
+
 message ListDatasetsResponse {
   string body = 1;
 }
