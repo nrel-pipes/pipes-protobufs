@@ -22,7 +22,7 @@ service PIPES{
 
   // rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse) {} // C2C-49
   rpc InitializeProjectFromToml(ProjectTomlRequest) returns (ProjectTomlResponse) {} // C2C-49
-  rpc GetProject(ProjectRequest) returns (ProjectResponse) {} // C2C-51
+  rpc GetProject(ProjectContext) returns (ProjectResponse) {} // C2C-51
   rpc GetProjectOwner(ProjectContext) returns (ProjectOwnerResponse) {}
 
 
@@ -96,10 +96,6 @@ message DatasetContext {
 }
 
 // Project
-message ProjectRequest {
-  string name = 1;
-}
-
 message ProjectResponse {
   string body = 1;
 }
