@@ -179,11 +179,6 @@ message CreateModelRunResponse {
   string model_run_name = 2;
 }
 
-message ListModelsRequest {
-  string project_name = 1;
-  string project_run_name = 2;
-}
-
 message ListModelsResponse {
   string body = 1;
 }
