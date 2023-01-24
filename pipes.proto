@@ -19,10 +19,9 @@ service PIPES{
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
 
   // Project
-  // rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse) {} // C2C-49
-  rpc InitializeProjectFromToml(ProjectTomlRequest) returns (ProjectTomlResponse) {} // C2C-49
-  rpc GetProject(ProjectContext) returns (ProjectResponse) {} // C2C-51
-  rpc GetProjectOwner(ProjectContext) returns (ProjectOwnerResponse) {}
+  rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse) {} // C2C-49
+  rpc GetProject(GetProjectRequest) returns (GetProjectResponse) {} // C2C-51
+  rpc GetProjectOwner(GetProjectOwnerRequest) returns (GetProjectOwnerResponse) {}
 
   // Project Run
   // rpc GetProjectRun(stream ProjectRunRequest) returns (stream GetProjectRunResponse) {} // C2C-42, C2C-43
@@ -32,14 +31,14 @@ service PIPES{
   // rpc GetModelContact(ModelRunRequest) returns (GetModelContactResponse) {} // C2C-28
   rpc CreateModel(CreateModelRequest) returns (CreateModelResponse) {}
   rpc CreateModelRun(CreateModelRunRequest) returns (CreateModelRunResponse) {}
-  rpc ListModels(ProjectRunContext) returns (ListModelsResponse) {}
-  rpc GetProjectsStatusForModel(ProjectsStatusForModelRequest) returns (ProjectsStatusResponse) {} // C2C-51
+  rpc ListModels(ListModelsRequest) returns (ListModelsResponse) {}
+  rpc GetProjectsStatus(GetProjectsStatusRequest) returns (GetProjectsStatusResponse) {} // C2C-51
 
   // Dataset
   rpc CreateDataset(CreateDatasetRequest) returns (CreateDatasetResponse) {} // C2C-29, C2C-30, C2C-31
-  rpc ListDatasets(ModelRunContext) returns (ListDatasetsResponse) {} // C2C-35
-  rpc GetDatasetOwner(DatasetContext) returns (DatasetOwnerResponse) {} // C2C-37
-  rpc GetDatasetLocation(DatasetContext) returns (DatasetLocationResponse) {} // C2C-36
+  rpc ListDatasets(ListDatasetsRequest) returns (ListDatasetsResponse) {} // C2C-35
+  rpc GetDatasetOwner(GetDatasetOwnerRequest) returns (GetDatasetOwnerResponse) {} // C2C-37
+  rpc GetDatasetLocation(GetDatasetLocationRequest) returns (GetDatasetLocationResponse) {} // C2C-36
   // rpc GetDatasetLineage(stream GetDatasetRequest) returns (stream GetDatasetLineageResponse) {} // C2C-39, C2C-40
-  // rpc ModifyDataset(stream ModifyDatasetRequest) returns (stream ModifyDatasetResponse) {} // C2C-33
+  // rpc UpdateDataset(stream UpdateDatasetRequest) returns (stream UpdateDatasetResponse) {} // C2C-33
 }

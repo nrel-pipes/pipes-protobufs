@@ -24,59 +24,64 @@ message ResetResponse {
 
 // User
 message CreateUserRequest {
-  UserType user = 1;
+  User user = 1;
 }
 
 message CreateUserResponse {
-  string created = 1;
-  string vertex_id = 2;
-  string username = 3;
+  string vertex_id = 1;
+  string username = 2;
 }
 
 // Project
-message ProjectResponse {
-  string body = 1;
+message CreateProjectRequest {
+  string data = 1;
 }
 
-message ProjectsStatusForModelRequest {
+message CreateProjectResponse {
+  string vertex_id = 1;
+  string project_name = 2;
+}
+
+message GetProjectRequest {
+  ProjectContext project_context = 1;
+}
+
+message GetProjectResponse {
+  string result = 1;
+}
+
+// Not actually in use now
+message GetProjectsStatusRequest {
   string model_name = 1;
 }
 
-message ProjectsStatusResponse {
+message GetProjectsStatusResponse {
   string projects = 1;
   string project_runs = 2;
 }
 
-message ProjectTomlRequest {
-  string body = 1;
+message GetProjectOwnerRequest {
+  ProjectContext project_context = 1;
 }
 
-message ProjectTomlResponse {
-  string project_id = 1;
-  bool created = 2;
-}
-
-message ProjectOwnerResponse {
+message GetProjectOwnerResponse {
   string vertex_id = 1;
-  UserType user = 2;
+  User user = 2;
 }
 
 // Model
 message CreateModelRequest {
-  ModelType model = 1;
+  Model model = 1;
 }
 
 message CreateModelResponse {
-  string created = 1;
-  string vertex_id = 2;
-  string model_name = 3;
+  string vertex_id = 1;
+  string model_name = 2;
 }
 
 message CreateModelRunRequest {
-  string project_name = 1;
-  string project_run_name =2;
-  string model_name = 3;
-  string body = 4;
+  ModelContext model_context = 1;
+  string data = 2;
 }
 
 message CreateModelRunResponse {
@@ -84,17 +89,18 @@ message CreateModelRunResponse {
   string model_run_name = 2;
 }
 
+message ListModelsRequest {
+  ProjectRunContext project_run_context = 1;
+}
+
 message ListModelsResponse {
-  string body = 1;
+  string models = 1;
 }
 
 // Dataset
 message CreateDatasetRequest {
-  string project_name = 1;
-  string project_run_name =2;
-  string model_name = 3;
-  string model_run_name = 4;
-  string body = 5;
+  ModelRunContext model_run_context = 1;
+  string data = 2;
 }
 
 message CreateDatasetResponse {
@@ -102,15 +108,27 @@ message CreateDatasetResponse {
   string dataset_name = 2;
 }
 
-message DatasetOwnerResponse {
-  string vertex_id = 1;
-  string dataset_owner = 2;
-}
-
-message DatasetLocationResponse {
-  string body = 1;
+message ListDatasetsRequest {
+  ModelRunContext model_run_context = 1;
 }
 
 message ListDatasetsResponse {
-  string body = 1;
+  string datasets = 1;
+}
+
+message GetDatasetOwnerRequest {
+  DatasetContext dataset_context = 1;
+}
+
+message GetDatasetOwnerResponse {
+  string vertex_id = 1;
+  User dataset_owner = 2;
+}
+
+message GetDatasetLocationRequest {
+  DatasetContext dataset_context = 1;
+}
+
+message GetDatasetLocationResponse {
+  string location = 1;
 }
