@@ -13,6 +13,8 @@ message PingRequest {
 message PingResponse {
   google.protobuf.Timestamp response_date = 1;
   bool is_happy = 2;
+  string code = 3;
+  string details = 4;
 }
 
 // Utility (Danger, Remove later?)
@@ -30,6 +32,8 @@ message CreateUserRequest {
 message CreateUserResponse {
   string vertex_id = 1;
   string username = 2;
+  string code = 3;
+  string details = 4;
 }
 
 // Project
@@ -40,6 +44,8 @@ message InitializeProjectRequest {
 message InitializeProjectResponse {
   string vertex_id = 1;
   string project_name = 2;
+  string code = 3;
+  string details = 4;
 }
 
 message GetProjectRequest {
@@ -48,6 +54,8 @@ message GetProjectRequest {
 
 message GetProjectResponse {
   string project = 1;
+  string code = 2;
+  string details = 3;
 }
 
 // Not actually in use now
@@ -58,6 +66,8 @@ message GetProjectsStatusRequest {
 message GetProjectsStatusResponse {
   string projects = 1;
   string project_runs = 2;
+  string code = 3;
+  string details = 4;
 }
 
 message GetProjectOwnerRequest {
@@ -67,6 +77,8 @@ message GetProjectOwnerRequest {
 message GetProjectOwnerResponse {
   string vertex_id = 1;
   User project_owner = 2;
+  string code = 3;
+  string details = 4;
 }
 
 // Model
@@ -77,6 +89,8 @@ message CreateModelRequest {
 message CreateModelResponse {
   string vertex_id = 1;
   string model_name = 2;
+  string code = 3;
+  string details = 4;
 }
 
 message CreateModelRunRequest {
@@ -87,6 +101,8 @@ message CreateModelRunRequest {
 message CreateModelRunResponse {
   string vertex_id = 1;
   string model_run_name = 2;
+  string code = 3;
+  string details = 4;
 }
 
 message ListModelsRequest {
@@ -95,6 +111,8 @@ message ListModelsRequest {
 
 message ListModelsResponse {
   string models = 1;
+  string code = 2;
+  string details = 3;
 }
 
 // Dataset
@@ -106,6 +124,8 @@ message CreateDatasetRequest {
 message CreateDatasetResponse {
   string vertex_id = 1;
   string dataset_name = 2;
+  string code = 3;
+  string details = 4;
 }
 
 message ListDatasetsRequest {
@@ -114,6 +134,8 @@ message ListDatasetsRequest {
 
 message ListDatasetsResponse {
   string datasets = 1;
+  string code = 2;
+  string details = 3;
 }
 
 message GetDatasetOwnerRequest {
@@ -123,6 +145,8 @@ message GetDatasetOwnerRequest {
 message GetDatasetOwnerResponse {
   string vertex_id = 1;
   User dataset_owner = 2;
+  string code = 3;
+  string details = 4;
 }
 
 message GetDatasetLocationRequest {
@@ -131,4 +155,6 @@ message GetDatasetLocationRequest {
 
 message GetDatasetLocationResponse {
   string location = 1;
+  string code = 2;
+  string details = 3;
 }
