@@ -2,7 +2,6 @@ syntax = "proto3";
 
 package pipes;
 
-import "types.proto";
 import "api.proto";
 
 
@@ -19,7 +18,7 @@ service PIPES{
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
 
   // Project
-  rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse) {} // C2C-49
+  rpc InitializeProject(InitializeProjectRequest) returns (InitializeProjectResponse) {} // C2C-49
   rpc GetProject(GetProjectRequest) returns (GetProjectResponse) {} // C2C-51
   rpc GetProjectOwner(GetProjectOwnerRequest) returns (GetProjectOwnerResponse) {}
 

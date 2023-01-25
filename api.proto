@@ -33,11 +33,11 @@ message CreateUserResponse {
 }
 
 // Project
-message CreateProjectRequest {
+message InitializeProjectRequest {
   string data = 1;
 }
 
-message CreateProjectResponse {
+message InitializeProjectResponse {
   string vertex_id = 1;
   string project_name = 2;
 }
@@ -47,7 +47,7 @@ message GetProjectRequest {
 }
 
 message GetProjectResponse {
-  string result = 1;
+  string project = 1;
 }
 
 // Not actually in use now
