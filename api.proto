@@ -158,3 +158,40 @@ message GetDatasetLocationResponse {
   string code = 2;
   string details = 3;
 }
+
+// Task
+message GetTaskRequest {
+  ModelRunContext model_run_context = 1;
+  string handoff_id = 2;
+  string task_id = 3;
+}
+
+message GetTaskResponse {
+  string task = 1;
+  string code = 2;
+  string details = 3;
+}
+
+message ListTasksRequest {
+  ModelRunContext model_run_context = 1;
+  string handoff_id = 2;
+  string task_type = 3;
+}
+
+message ListTasksResponse {
+  string tasks = 1;
+  string code = 2;
+  string details = 3;
+}
+
+message PutTasksRequest {
+  ModelRunContext model_run_context = 1;
+  string data = 2;
+}
+
+message PutTasksResponse {
+  string vertex_id = 1;
+  string model_run_name = 2;
+  string code = 3;
+  string details = 4;
+}
