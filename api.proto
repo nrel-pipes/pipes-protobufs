@@ -1,0 +1,116 @@
+syntax = "proto3";
+
+package pipes;
+
+import "google/protobuf/timestamp.proto";
+import "types.proto";
+
+// Health Ping
+message PingRequest {
+  string who_i_am = 1;
+}
+
+message PingResponse {
+  google.protobuf.Timestamp response_date = 1;
+  bool is_happy = 2;
+}
+
+// Utility (Danger, Remove later?)
+message ResetRequest {}
+
+message ResetResponse {
+  bool reset_success = 1;
+}
+
+// User
+message CreateUserRequest {
+  UserType user = 1;
+}
+
+message CreateUserResponse {
+  string created = 1;
+  string vertex_id = 2;
+  string username = 3;
+}
+
+// Project
+message ProjectResponse {
+  string body = 1;
+}
+
+message ProjectsStatusForModelRequest {
+  string model_name = 1;
+}
+
+message ProjectsStatusResponse {
+  string projects = 1;
+  string project_runs = 2;
+}
+
+message ProjectTomlRequest {
+  string body = 1;
+}
+
+message ProjectTomlResponse {
+  string project_id = 1;
+  bool created = 2;
+}
+
+message ProjectOwnerResponse {
+  string vertex_id = 1;
+  UserType user = 2;
+}
+
+// Model
+message CreateModelRequest {
+  ModelType model = 1;
+}
+
+message CreateModelResponse {
+  string created = 1;
+  string vertex_id = 2;
+  string model_name = 3;
+}
+
+message CreateModelRunRequest {
+  string project_name = 1;
+  string project_run_name =2;
+  string model_name = 3;
+  string body = 4;
+}
+
+message CreateModelRunResponse {
+  string vertex_id = 1;
+  string model_run_name = 2;
+}
+
+message ListModelsResponse {
+  string body = 1;
+}
+
+// Dataset
+message CreateDatasetRequest {
+  string project_name = 1;
+  string project_run_name =2;
+  string model_name = 3;
+  string model_run_name = 4;
+  string body = 5;
+}
+
+message CreateDatasetResponse {
+  string vertex_id = 1;
+  string dataset_name = 2;
+}
+
+message DatasetOwnerResponse {
+  string vertex_id = 1;
+  string dataset_owner = 2;
+}
+
+message DatasetLocationResponse {
+  string body = 1;
+}
+
+message ListDatasetsResponse {
+  string body = 1;
+}
