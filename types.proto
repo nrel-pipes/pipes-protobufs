@@ -3,7 +3,7 @@ syntax = "proto3";
 package pipes;
 
 // User
-message UserType {
+message User {
   string username = 1;
   string email = 2;
   string first_name = 3;
@@ -11,9 +11,9 @@ message UserType {
 }
 
 // Model
-message ModelType {
+message Model {
   string name = 1;
-  repeated UserType members = 2;
+  repeated User members = 2;
 }
 
 
