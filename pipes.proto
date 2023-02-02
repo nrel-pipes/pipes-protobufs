@@ -1,13 +1,12 @@
 syntax = "proto3";
 
 package pipes;
-import "google/protobuf/timestamp.proto";
-//import "google/protobuf/wrappers.proto";
+
+import "api.proto";
 
 
 service PIPES{
   // PIPES RPCs
-  //
 
   // Health
   rpc Ping(PingRequest) returns (PingResponse) {}
@@ -15,202 +14,31 @@ service PIPES{
   // Utility
   rpc ResetGraph(ResetRequest) returns (ResetResponse) {}
 
-  // UserType
+  // User
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
-  rpc GetUserContext(UserContextRequest) returns (UserContextResponse) {}
+  rpc GetUserContext(GetUserContextRequest) returns (GetUserContextResponse) {}
 
-  // Projects
+  // Project
+  rpc InitializeProject(InitializeProjectRequest) returns (InitializeProjectResponse) {} // C2C-49
+  rpc GetProject(GetProjectRequest) returns (GetProjectResponse) {} // C2C-51
+  rpc GetProjectOwner(GetProjectOwnerRequest) returns (GetProjectOwnerResponse) {}
 
-  // rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse) {} // C2C-49
-  rpc InitializeProjectFromToml(ProjectTomlRequest) returns (ProjectTomlResponse) {} // C2C-49
-  // rpc GetProjectStatus(ProjectRequest) returns (GetProjectStatusResponse) {} // C2C-51
-  rpc GetProjectOwner(ProjectContext) returns (ProjectOwnerResponse) {}
-
-
-  // ProjectType Runs
+  // Project Run
   // rpc GetProjectRun(stream ProjectRunRequest) returns (stream GetProjectRunResponse) {} // C2C-42, C2C-43
   // rpc CreateProjectRun(stream CreateProjectRunRequest) returns (stream CreateProjectRunResponse) {}
 
-  // Models
+  // Model
   // rpc GetModelContact(ModelRunRequest) returns (GetModelContactResponse) {} // C2C-28
   rpc CreateModel(CreateModelRequest) returns (CreateModelResponse) {}
   rpc CreateModelRun(CreateModelRunRequest) returns (CreateModelRunResponse) {}
-  rpc ListModels(ModelRunContext) returns (ListModelsResponse) {}
-  rpc GetProjectsStatusForModel(ProjectsStatusForModelRequest) returns (ProjectsStatusResponse) {} // C2C-51
+  rpc ListModels(ListModelsRequest) returns (ListModelsResponse) {}
+  rpc GetProjectsStatus(GetProjectsStatusRequest) returns (GetProjectsStatusResponse) {} // C2C-51
 
-  // Datasets
+  // Dataset
   rpc CreateDataset(CreateDatasetRequest) returns (CreateDatasetResponse) {} // C2C-29, C2C-30, C2C-31
-  rpc ListDatasets(ModelRunContext) returns (ListDatasetsResponse) {} // C2C-35
-  rpc GetDatasetOwner(DatasetContext) returns (DatasetOwnerResponse) {} // C2C-37
-  rpc GetDatasetLocation(DatasetContext) returns (DatasetLocationResponse) {} // C2C-36
+  rpc ListDatasets(ListDatasetsRequest) returns (ListDatasetsResponse) {} // C2C-35
+  rpc GetDatasetOwner(GetDatasetOwnerRequest) returns (GetDatasetOwnerResponse) {} // C2C-37
+  rpc GetDatasetLocation(GetDatasetLocationRequest) returns (GetDatasetLocationResponse) {} // C2C-36
   // rpc GetDatasetLineage(stream GetDatasetRequest) returns (stream GetDatasetLineageResponse) {} // C2C-39, C2C-40
-  // rpc ModifyDataset(stream ModifyDatasetRequest) returns (stream ModifyDatasetResponse) {} // C2C-33
-}
-
-
-// Health Ping
-message PingRequest {
-  string who_i_am = 1;
-}
-
-message PingResponse {
-  google.protobuf.Timestamp response_date = 1;
-  bool is_happy = 2;
-}
-
-// Utility
-message ResetRequest {}
-
-message ResetResponse {
-  bool reset_success = 1;
-}
-
-// Contexts
-message ProjectContext {
-  string project_name = 1;
-}
-
-message ProjectRunContext {
-  string project_name = 1;
-  string project_run_name = 2;
-}
-
-message ModelContext {
-  string project_name = 1;
-  string project_run_name = 2;
-  string model_name = 3;
-}
-
-message ModelRunContext {
-  string project_name = 1;
-  string project_run_name = 2;
-  string model_name = 3;
-  string model_run_name = 4;
-}
-
-message DatasetContext {
-  string project_name = 1;
-  string project_run_name =2;
-  string model_name = 3;
-  string model_run_name = 4;
-  string dataset_name = 5;
-}
-
-// User Related
-message UserType {
-  string username = 1;
-  string email = 2;
-  string first_name = 3;
-  string last_name = 4;
-}
-
-message CreateUserRequest {
-  UserType user = 1;
-}
-
-message CreateUserResponse {
-  string created = 1;
-  string vertex_id = 2;
-  string username = 3;
-}
-
-message UserContextRequest {
-  string username = 1;
-  string email = 2;
-}
-
-message UserContextResponse {
-  string context_items = 1;
-}
-
-
-// Projects Status for Model
-
-message ProjectsStatusForModelRequest {
-  string model_name = 1;
-}
-
-message ProjectsStatusResponse {
-  string projects = 1;
-  string project_runs = 2;
-}
-
-// Project Toml Initialization
-message ProjectTomlRequest {
-  string body = 1;
-}
-
-message ProjectTomlResponse {
-  string project_id = 1;
-  bool created = 2;
-}
-
-// Project Responses
-message ProjectOwnerResponse {
-  string vertex_id = 1;
-  UserType user = 2;
-}
-
-// Model Related
-message ModelType {
-  string name = 1;
-  repeated UserType members = 2;
-}
-
-message CreateModelRequest {
-  ModelType model = 1;
-}
-
-message CreateModelResponse {
-  string created = 1;
-  string vertex_id = 2;
-  string model_name = 3;
-}
-
-message CreateModelRunRequest {
-  string project_name = 1;
-  string project_run_name =2;
-  string model_name = 3;
-  string body = 4;
-}
-
-message CreateModelRunResponse {
-  string vertex_id = 1;
-  string model_run_name = 2;
-}
-
-message ListModelsRequest {
-  string project_name = 1;
-  string project_run_name = 2;
-}
-
-message ListModelsResponse {
-  string body = 1;
-}
-
-// Dataset Related
-message CreateDatasetRequest {
-  string project_name = 1;
-  string project_run_name =2;
-  string model_name = 3;
-  string model_run_name = 4;
-  string body = 5;
-}
-
-message CreateDatasetResponse {
-  string vertex_id = 1;
-  string dataset_name = 2;
-}
-
-message DatasetOwnerResponse {
-  string vertex_id = 1;
-  string dataset_owner = 2;
-}
-
-message DatasetLocationResponse {
-  string body = 1;
-}
-
-message ListDatasetsResponse {
-  string body = 1;
+  // rpc UpdateDataset(stream UpdateDatasetRequest) returns (stream UpdateDatasetResponse) {} // C2C-33
 }
