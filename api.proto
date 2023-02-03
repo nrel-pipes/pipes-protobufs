@@ -71,16 +71,14 @@ message GetProjectResponse {
   string details = 3;
 }
 
-// Not actually in use now
-message GetProjectsStatusRequest {
-  string model_name = 1;
+message GetProjectsStatusForModelRequest {
+  ModelContext model_context = 1;
 }
 
-message GetProjectsStatusResponse {
+message GetProjectsStatusForModelResponse {
   string projects = 1;
-  string project_runs = 2;
-  string code = 3;
-  string details = 4;
+  string code = 2;
+  string details = 3;
 }
 
 message GetProjectOwnerRequest {
