@@ -39,8 +39,6 @@ message CreateUserResponse {
 // User Context
 message GetUserContextRequest {
   User user = 1;
-  string code = 2;
-  string details = 3;
 }
 
 message GetUserContextResponse {
