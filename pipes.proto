@@ -41,4 +41,10 @@ service PIPES{
   rpc GetDatasetLocation(GetDatasetLocationRequest) returns (GetDatasetLocationResponse) {} // C2C-36
   // rpc GetDatasetLineage(stream GetDatasetRequest) returns (stream GetDatasetLineageResponse) {} // C2C-39, C2C-40
   // rpc UpdateDataset(stream UpdateDatasetRequest) returns (stream UpdateDatasetResponse) {} // C2C-33
+
+  // Task
+  rpc GetTask(GetTaskRequest) returns (GetTaskResponse) {}
+  rpc ListTasks(ListTasksRequest) returns (ListTasksResponse) {}
+  rpc PutTasks(PutTasksRequest) returns (PutTasksResponse) {}
+
 }
