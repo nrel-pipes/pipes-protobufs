@@ -16,6 +16,7 @@ service PIPES{
 
   // User
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
+  rpc GetUserContext(GetUserContextRequest) returns (GetUserContextResponse) {}
 
   // Project
   rpc InitializeProject(InitializeProjectRequest) returns (InitializeProjectResponse) {} // C2C-49
@@ -31,8 +32,8 @@ service PIPES{
   rpc CreateModel(CreateModelRequest) returns (CreateModelResponse) {}
   rpc CreateModelRun(CreateModelRunRequest) returns (CreateModelRunResponse) {}
   rpc ListModels(ListModelsRequest) returns (ListModelsResponse) {}
-  rpc GetProjectsStatus(GetProjectsStatusRequest) returns (GetProjectsStatusResponse) {} // C2C-51
   rpc GetHandoffTemplate(GetHandoffTemplateRequest) returns (GetHandoffTemplateResponse) {}
+  rpc GetProjectsStatusForModel(GetProjectsStatusForModelRequest) returns (GetProjectsStatusForModelResponse) {} // C2C-51
 
   // Dataset
   rpc CreateDataset(CreateDatasetRequest) returns (CreateDatasetResponse) {} // C2C-29, C2C-30, C2C-31
