@@ -32,7 +32,7 @@ service PIPES{
   rpc CreateModelRun(CreateModelRunRequest) returns (CreateModelRunResponse) {}
   rpc ListModels(ListModelsRequest) returns (ListModelsResponse) {}
   rpc GetProjectsStatus(GetProjectsStatusRequest) returns (GetProjectsStatusResponse) {} // C2C-51
-  rpc GetModelRunHandoffTemplate(GetModelRunHandoffTemplateRequest) returns (GetModelRunHandoffTemplateResponse) {}
+  rpc GetHandoffTemplate(GetHandoffTemplateRequest) returns (GetHandoffTemplateResponse) {}
 
   // Dataset
   rpc CreateDataset(CreateDatasetRequest) returns (CreateDatasetResponse) {} // C2C-29, C2C-30, C2C-31

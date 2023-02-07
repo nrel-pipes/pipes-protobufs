@@ -115,12 +115,12 @@ message ListModelsResponse {
   string details = 3;
 }
 
-message GetModelRunHandoffTemplateRequest {
+message GetHandoffTemplateRequest {
   ModelContext model_context = 1;
 }
 
-message GetModelRunHandoffTemplateResponse {
-  string model_run_data = 1;
+message GetHandoffTemplateResponse {
+  string handoff_data = 1;
 }
 
 // Dataset
