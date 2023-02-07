@@ -124,11 +124,11 @@ message ListModelsResponse {
   string details = 3;
 }
 
-message GetHandoffTemplateRequest {
+message GetModelRunTemplateRequest {
   ModelContext model_context = 1;
 }
 
-message GetHandoffTemplateResponse {
+message GetModelRunTemplateResponse {
   string handoff_data = 1;
 }
 
