@@ -124,6 +124,14 @@ message ListModelsResponse {
   string details = 3;
 }
 
+message GetModelRunTemplateRequest {
+  ModelContext model_context = 1;
+}
+
+message GetModelRunTemplateResponse {
+  string handoff_data = 1;
+}
+
 // Dataset
 message CreateDatasetRequest {
   ModelRunContext model_run_context = 1;
