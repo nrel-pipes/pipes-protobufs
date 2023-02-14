@@ -47,5 +47,5 @@ service PIPES{
   rpc GetTask(GetTaskRequest) returns (GetTaskResponse) {}
   rpc ListTasks(ListTasksRequest) returns (ListTasksResponse) {}
   rpc PutTasks(PutTasksRequest) returns (PutTasksResponse) {}
-
+  rpc CompleteTasks(CompleteTasksRequest) returns (CompleteTasksResponse) {}
 }

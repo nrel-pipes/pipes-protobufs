@@ -211,3 +211,15 @@ message PutTasksResponse {
   string code = 2;
   string details = 3;
 }
+
+message CompleteTasksRequest {
+  ModelRunContext model_run_context = 1;
+  string task_data = 2;
+  string dataset_data = 3;
+}
+
+message CompleteTasksResponse {
+  string vertex_id = 1;
+  string code = 2;
+  string details = 3;
+}
