@@ -223,3 +223,13 @@ message SubmitTasksResponse {
   string code = 2;
   string details = 3;
 }
+
+message CheckTasksRequest {
+  ModelRunContext model_run_context = 1;
+}
+
+message CheckTasksResponse {
+  string task_statuses = 1;
+  string code = 2;
+  string details = 3;
+}
