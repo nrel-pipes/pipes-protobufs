@@ -230,7 +230,7 @@ message GetTaskStatusRequest {
 }
 
 message GetTaskStatusResponse {
-  string status = 1;
+  string task_status = 1;
   string code = 2;
   string details = 3;
 }
