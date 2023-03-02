@@ -225,12 +225,23 @@ message SubmitTasksResponse {
   string details = 3;
 }
 
-message CheckTaskStatusRequest {
+message GetTaskStatusRequest {
   TaskContext task_context = 1;
 }
 
-message CheckTaskStatusResponse {
-  string statuses = 1;
+message GetTaskStatusResponse {
+  string status = 1;
+  string code = 2;
+  string details = 3;
+}
+
+message UpdateTaskStatusRequest {
+  TaskContext task_context = 1;
+  string task_status = 2;
+}
+
+message UpdateTaskStatusResponse {
+  string submission_name = 1;
   string code = 2;
   string details = 3;
 }

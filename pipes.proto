@@ -45,8 +45,9 @@ service PIPES{
 
   // Task
   rpc GetTask(GetTaskRequest) returns (GetTaskResponse) {}
+  rpc GetTaskStatus(GetTaskStatusRequest) returns (GetTaskStatusResponse) {}
   rpc ListTasks(ListTasksRequest) returns (ListTasksResponse) {}
   rpc PutTasks(PutTasksRequest) returns (PutTasksResponse) {}
   rpc SubmitTasks(SubmitTasksRequest) returns (SubmitTasksResponse) {}
-  rpc CheckTaskStatus(CheckTaskStatusRequest) returns (CheckTaskStatusResponse) {}
+  rpc UpdateTaskStatus(UpdateTaskStatusRequest) returns (UpdateTaskStatusResponse) {}
 }
