@@ -226,11 +226,11 @@ message SubmitTasksResponse {
 }
 
 message CheckTaskStatusRequest {
-  ModelRunContext model_run_context = 1;
+  TaskContext task_context = 1;
 }
 
 message CheckTaskStatusResponse {
-  string tasks = 1;
+  string statuses = 1;
   string code = 2;
   string details = 3;
 }

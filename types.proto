@@ -52,3 +52,12 @@ message DatasetContext {
   string dataset_name = 5;
   string vertex_id = 6;
 }
+
+message TaskContext {
+  string project_name = 1;
+  string project_run_name =2;
+  string model_name = 3;
+  string model_run_name = 4;
+  string submission_name = 5;
+  string vertex_id = 6;
+}
