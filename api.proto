@@ -221,8 +221,9 @@ message SubmitTasksRequest {
 
 message SubmitTasksResponse {
   string vertex_id = 1;
-  string code = 2;
-  string details = 3;
+  string task_name = 2;
+  string code = 3;
+  string details = 4;
 }
 
 message GetTaskStatusRequest {
