@@ -214,7 +214,7 @@ message PutTasksResponse {
 
 message SubmitTasksRequest {
   ModelRunContext model_run_context = 1;
-  bool task_status = 2;
+  bool task_failed = 2;
   string task_data = 3;
   string dataset_data = 4;
 }
