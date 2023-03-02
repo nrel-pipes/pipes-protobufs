@@ -230,9 +230,10 @@ message GetTaskStatusRequest {
 }
 
 message GetTaskStatusResponse {
-  string task_status = 1;
-  string code = 2;
-  string details = 3;
+  string task_name = 1;
+  string task_status = 2;
+  string code = 3;
+  string details = 4;
 }
 
 message UpdateTaskStatusRequest {
@@ -241,7 +242,8 @@ message UpdateTaskStatusRequest {
 }
 
 message UpdateTaskStatusResponse {
-  string submission_name = 1;
-  string code = 2;
-  string details = 3;
+  string task_name = 1;
+  string task_status = 2;
+  string code = 3;
+  string details = 4;
 }
