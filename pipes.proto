@@ -24,7 +24,8 @@ service PIPES{
   rpc GetProjectOwner(GetProjectOwnerRequest) returns (GetProjectOwnerResponse) {}
 
   // Project Run
-  // rpc GetProjectRun(stream ProjectRunRequest) returns (stream GetProjectRunResponse) {} // C2C-42, C2C-43
+  rpc GetProjectRun(GetProjectRunRequest) returns (GetProjectRunResponse) {} // C2C-42, C2C-43
+  rpc DescribeProjectRuns(DescribeProjectRunsRequest) returns (DescribeProjectRunsResponse) {}
   // rpc CreateProjectRun(stream CreateProjectRunRequest) returns (stream CreateProjectRunResponse) {}
 
   // Model
