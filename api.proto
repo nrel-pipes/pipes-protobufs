@@ -183,6 +183,26 @@ message GetModelRunTemplateResponse {
   string handoff_data = 1;
 }
 
+message ModelDetails {
+  string name = 1;
+  string display_name = 2;
+  string model_team = 3;
+  repeated string expected_scenarios = 4;
+  string requirements = 5;
+  repeated User users = 6;
+  string scenario_mappings = 7;
+}
+
+message DescribeModelsRequest {
+  ProjectRunContext project_run_context = 1;
+}
+
+message DescribeModelsResponse {
+  repeated ModelDetails models = 1;
+  string code = 2;
+  string details = 3;
+}
+
 // Dataset
 message CreateDatasetRequest {
   ModelRunContext model_run_context = 1;

@@ -35,6 +35,7 @@ service PIPES{
   rpc ListModels(ListModelsRequest) returns (ListModelsResponse) {}
   rpc GetModelRunTemplate(GetModelRunTemplateRequest) returns (GetModelRunTemplateResponse) {}
   rpc GetProjectsStatusForModel(GetProjectsStatusForModelRequest) returns (GetProjectsStatusForModelResponse) {} // C2C-51
+  rpc DescribeModels(DescribeModelsRequest) returns (DescribeModelsResponse) {}
 
   // Dataset
   rpc CreateDataset(CreateDatasetRequest) returns (CreateDatasetResponse) {} // C2C-29, C2C-30, C2C-31
