@@ -135,8 +135,14 @@ message DescribeProjectRunsRequest {
 }
 
 
+// message DescribeProjectRunsResponse {
+//   repeated ProjectRunDetails project_runs = 1;
+//   string code = 2;
+//   string details = 3;
+// }
+
 message DescribeProjectRunsResponse {
-  repeated ProjectRunDetails project_runs = 1;
+  string project_runs = 1;
   string code = 2;
   string details = 3;
 }
