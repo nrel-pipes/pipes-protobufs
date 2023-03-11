@@ -153,6 +153,16 @@ message CheckModelRunProgressResponse {
   string details = 3;
 }
 
+message ListModelingTeamsRequest {
+  ProjectContext project_context = 1;
+}
+
+message ListModelTeamsResponse {
+  string modeling_teams = 1;
+  string code = 2;
+  string details = 3;
+}
+
 
 // Dataset
 message CreateDatasetRequest {
