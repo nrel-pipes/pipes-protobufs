@@ -157,7 +157,7 @@ message ListModelingTeamsRequest {
   ProjectContext project_context = 1;
 }
 
-message ListModelTeamsResponse {
+message ListModelingTeamsResponse {
   string modeling_teams = 1;
   string code = 2;
   string details = 3;
