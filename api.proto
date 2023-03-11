@@ -90,6 +90,17 @@ message GetProjectOwnerResponse {
   string details = 4;
 }
 
+message CheckProjectRunProgressRequest {
+  ProjectRunContext project_run_context = 1;
+}
+
+message CheckProjectRunProgressResponse {
+  string progress_status = 1;
+  string code = 2;
+  string details = 3;
+}
+
+
 // Model
 message CreateModelRequest {
   Model model = 1;
@@ -131,6 +142,17 @@ message GetModelRunTemplateRequest {
 message GetModelRunTemplateResponse {
   string handoff_data = 1;
 }
+
+message CheckModelRunProgressRequest {
+  ModelRunContext model_run_context = 1;
+}
+
+message CheckModelRunProgressResponse {
+  string progress_status = 1;
+  string code = 2;
+  string details = 3;
+}
+
 
 // Dataset
 message CreateDatasetRequest {
