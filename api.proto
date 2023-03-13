@@ -27,6 +27,7 @@ message ResetResponse {
 // User
 message CreateUserRequest {
   User user = 1;
+  string modeling_team = 2;
 }
 
 message CreateUserResponse {
