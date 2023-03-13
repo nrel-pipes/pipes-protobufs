@@ -154,7 +154,7 @@ message CheckModelRunProgressResponse {
 }
 
 message ListModelingTeamsRequest {
-  ProjectContext project_context = 1;
+  ModelContext model_context = 1;
 }
 
 message ListModelingTeamsResponse {
