@@ -14,9 +14,10 @@ service PIPES{
   // Utility
   rpc ResetGraph(ResetRequest) returns (ResetResponse) {}
 
-  // User
+  // Users & Teams
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
   rpc GetUserContext(GetUserContextRequest) returns (GetUserContextResponse) {}
+  rpc ListModelingTeams(ListModelingTeamsRequest) returns (ListModelingTeamsResponse) {}
 
   // Project
   rpc InitializeProject(InitializeProjectRequest) returns (InitializeProjectResponse) {} // C2C-49
@@ -32,7 +33,6 @@ service PIPES{
   // rpc GetModelContact(ModelRunRequest) returns (GetModelContactResponse) {} // C2C-28
   rpc CreateModel(CreateModelRequest) returns (CreateModelResponse) {}
   rpc ListModels(ListModelsRequest) returns (ListModelsResponse) {}
-  rpc ListModelingTeams(ListModelingTeamsRequest) returns (ListModelingTeamsResponse) {}
   rpc GetProjectsStatusForModel(GetProjectsStatusForModelRequest) returns (GetProjectsStatusForModelResponse) {} // C2C-51
 
   // Model Run
