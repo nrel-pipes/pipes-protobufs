@@ -126,9 +126,7 @@ message CreateModelRunResponse {
   string details = 4;
 }
 
-message ListModelsRequest {
-  ProjectRunContext project_run_context = 1;
-}
+message ListModelsRequest {}
 
 message ListModelsResponse {
   string models = 1;
