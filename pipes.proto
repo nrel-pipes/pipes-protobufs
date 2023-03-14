@@ -22,6 +22,7 @@ service PIPES{
   rpc InitializeProject(InitializeProjectRequest) returns (InitializeProjectResponse) {} // C2C-49
   rpc GetProject(GetProjectRequest) returns (GetProjectResponse) {} // C2C-51
   rpc GetProjectOwner(GetProjectOwnerRequest) returns (GetProjectOwnerResponse) {}
+  rpc GetProjectSchedule(GetProjectScheduleRequest) returns (GetProjectScheduleResponse) {}
 
   // Project Run
   rpc GetProjectRun(GetProjectRunRequest) returns (GetProjectRunResponse) {} // C2C-42, C2C-43

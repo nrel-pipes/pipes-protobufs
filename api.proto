@@ -90,6 +90,16 @@ message GetProjectOwnerResponse {
   string details = 4;
 }
 
+message GetProjectScheduleRequest {
+  ProjectContext project_context = 1;
+}
+
+message GetProjectScheduleResponse {
+  string project_schedule = 1;
+  string code = 2;
+  string details = 3;
+}
+
 // ProjectRun
 message GetProjectRunRequest {
   ProjectRunContext project_run_context = 1;
