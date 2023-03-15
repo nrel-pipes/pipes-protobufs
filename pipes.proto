@@ -28,6 +28,7 @@ service PIPES{
   rpc GetProjectRun(GetProjectRunRequest) returns (GetProjectRunResponse) {} // C2C-42, C2C-43
   rpc ListProjectRuns(ListProjectRunsRequest) returns (ListProjectRunsResponse) {}
   // rpc CreateProjectRun(stream CreateProjectRunRequest) returns (stream CreateProjectRunResponse) {}
+  rpc CheckProjectRunProgress(CheckProjectRunProgressRequest) returns (CheckProjectRunProgressResponse) {}
 
   // Model
   // rpc GetModelContact(ModelRunRequest) returns (GetModelContactResponse) {} // C2C-28
@@ -35,8 +36,12 @@ service PIPES{
   rpc CreateModelRun(CreateModelRunRequest) returns (CreateModelRunResponse) {}
   rpc GetModel(GetModelRequest) returns (GetModelResponse) {}
   rpc ListModels(ListModelsRequest) returns (ListModelsResponse) {}
-  rpc GetModelRunTemplate(GetModelRunTemplateRequest) returns (GetModelRunTemplateResponse) {}
   rpc GetProjectsStatusForModel(GetProjectsStatusForModelRequest) returns (GetProjectsStatusForModelResponse) {} // C2C-51
+
+  // Model Run
+  rpc CreateModelRun(CreateModelRunRequest) returns (CreateModelRunResponse) {}
+  rpc GetModelRunTemplate(GetModelRunTemplateRequest) returns (GetModelRunTemplateResponse) {}
+  rpc CheckModelRunProgress(CheckModelRunProgressRequest) returns (CheckModelRunProgressResponse) {}
 
   // Dataset
   rpc CreateDataset(CreateDatasetRequest) returns (CreateDatasetResponse) {} // C2C-29, C2C-30, C2C-31
@@ -48,7 +53,9 @@ service PIPES{
 
   // Task
   rpc GetTask(GetTaskRequest) returns (GetTaskResponse) {}
+  rpc GetTaskStatus(GetTaskStatusRequest) returns (GetTaskStatusResponse) {}
   rpc ListTasks(ListTasksRequest) returns (ListTasksResponse) {}
   rpc PutTasks(PutTasksRequest) returns (PutTasksResponse) {}
   rpc SubmitTasks(SubmitTasksRequest) returns (SubmitTasksResponse) {}
+  rpc UpdateTaskStatus(UpdateTaskStatusRequest) returns (UpdateTaskStatusResponse) {}
 }
