@@ -26,17 +26,17 @@ service PIPES{
 
   // Project Run
   rpc GetProjectRun(GetProjectRunRequest) returns (GetProjectRunResponse) {} // C2C-42, C2C-43
-  rpc DescribeProjectRuns(DescribeProjectRunsRequest) returns (DescribeProjectRunsResponse) {}
+  rpc ListProjectRuns(ListProjectRunsRequest) returns (ListProjectRunsResponse) {}
   // rpc CreateProjectRun(stream CreateProjectRunRequest) returns (stream CreateProjectRunResponse) {}
 
   // Model
   // rpc GetModelContact(ModelRunRequest) returns (GetModelContactResponse) {} // C2C-28
   rpc CreateModel(CreateModelRequest) returns (CreateModelResponse) {}
   rpc CreateModelRun(CreateModelRunRequest) returns (CreateModelRunResponse) {}
+  rpc GetModel(GetModelRequest) returns (GetModelResponse) {}
   rpc ListModels(ListModelsRequest) returns (ListModelsResponse) {}
   rpc GetModelRunTemplate(GetModelRunTemplateRequest) returns (GetModelRunTemplateResponse) {}
   rpc GetProjectsStatusForModel(GetProjectsStatusForModelRequest) returns (GetProjectsStatusForModelResponse) {} // C2C-51
-  rpc DescribeModels(DescribeModelsRequest) returns (DescribeModelsResponse) {}
 
   // Dataset
   rpc CreateDataset(CreateDatasetRequest) returns (CreateDatasetResponse) {} // C2C-29, C2C-30, C2C-31

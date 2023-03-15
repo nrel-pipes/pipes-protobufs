@@ -111,11 +111,11 @@ message GetProjectRunResponse {
   string details = 3;
 }
 
-message DescribeProjectRunsRequest {
+message ListProjectRunsRequest {
   ProjectContext project_context = 1;
 }
 
-message DescribeProjectRunsResponse {
+message ListProjectRunsResponse {
   string project_runs = 1;
   string code = 2;
   string details = 3;
@@ -145,16 +145,6 @@ message CreateModelRunResponse {
   string details = 4;
 }
 
-message ListModelsRequest {
-  ProjectRunContext project_run_context = 1;
-}
-
-message ListModelsResponse {
-  string models = 1;
-  string code = 2;
-  string details = 3;
-}
-
 message GetModelRunTemplateRequest {
   ModelContext model_context = 1;
 }
@@ -163,11 +153,21 @@ message GetModelRunTemplateResponse {
   string handoff_data = 1;
 }
 
-message DescribeModelsRequest {
+message GetModelRequest {
+  ModelContext model_context = 1;
+}
+
+message GetModelResponse {
+  string model = 1;
+  string code = 2;
+  string details = 3;
+}
+
+message ListModelsRequest {
   ProjectRunContext project_run_context = 1;
 }
 
-message DescribeModelsResponse {
+message ListModelsResponse {
   string models = 1;
   string code = 2;
   string details = 3;
