@@ -153,14 +153,6 @@ message CreateModelRunResponse {
   string details = 4;
 }
 
-message GetModelRunTemplateRequest {
-  ModelContext model_context = 1;
-}
-
-message GetModelRunTemplateResponse {
-  string handoff_data = 1;
-}
-
 message GetModelRequest {
   ModelContext model_context = 1;
 }
