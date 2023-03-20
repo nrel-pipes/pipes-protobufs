@@ -90,6 +90,25 @@ message GetProjectOwnerResponse {
   string details = 4;
 }
 
+message GetProjectScheduleRequest {
+  ProjectContext project_context = 1;
+}
+
+message GetProjectScheduleResponse {
+  string project_schedule = 1;
+  string code = 2;
+  string details = 3;
+}
+
+// ProjectRun
+message GetProjectRunRequest {
+  ProjectRunContext project_run_context = 1;
+}
+
+message GetProjectRunResponse {
+  string project_run = 1;
+}
+
 message CheckProjectRunProgressRequest {
   ProjectRunContext project_run_context = 1;
 }
@@ -100,6 +119,15 @@ message CheckProjectRunProgressResponse {
   string details = 3;
 }
 
+message ListProjectRunsRequest {
+  ProjectContext project_context = 1;
+}
+
+message ListProjectRunsResponse {
+  string project_runs = 1;
+  string code = 2;
+  string details = 3;
+}
 
 // Model
 message CreateModelRequest {
@@ -123,6 +151,16 @@ message CreateModelRunResponse {
   string model_run_name = 2;
   string code = 3;
   string details = 4;
+}
+
+message GetModelRequest {
+  ModelContext model_context = 1;
+}
+
+message GetModelResponse {
+  string model = 1;
+  string code = 2;
+  string details = 3;
 }
 
 message ListModelsRequest {
@@ -152,7 +190,6 @@ message CheckModelRunProgressResponse {
   string code = 2;
   string details = 3;
 }
-
 
 // Dataset
 message CreateDatasetRequest {
