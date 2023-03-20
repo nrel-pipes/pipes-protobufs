@@ -23,15 +23,18 @@ service PIPES{
   rpc InitializeProject(InitializeProjectRequest) returns (InitializeProjectResponse) {} // C2C-49
   rpc GetProject(GetProjectRequest) returns (GetProjectResponse) {} // C2C-51
   rpc GetProjectOwner(GetProjectOwnerRequest) returns (GetProjectOwnerResponse) {}
+  rpc GetProjectSchedule(GetProjectScheduleRequest) returns (GetProjectScheduleResponse) {}
 
   // Project Run
-  // rpc GetProjectRun(stream ProjectRunRequest) returns (stream GetProjectRunResponse) {} // C2C-42, C2C-43
+  rpc GetProjectRun(GetProjectRunRequest) returns (GetProjectRunResponse) {} // C2C-42, C2C-43
+  rpc ListProjectRuns(ListProjectRunsRequest) returns (ListProjectRunsResponse) {}
   // rpc CreateProjectRun(stream CreateProjectRunRequest) returns (stream CreateProjectRunResponse) {}
   rpc CheckProjectRunProgress(CheckProjectRunProgressRequest) returns (CheckProjectRunProgressResponse) {}
 
   // Model
   // rpc GetModelContact(ModelRunRequest) returns (GetModelContactResponse) {} // C2C-28
   rpc CreateModel(CreateModelRequest) returns (CreateModelResponse) {}
+  rpc GetModel(GetModelRequest) returns (GetModelResponse) {}
   rpc ListModels(ListModelsRequest) returns (ListModelsResponse) {}
   rpc GetProjectsStatusForModel(GetProjectsStatusForModelRequest) returns (GetProjectsStatusForModelResponse) {} // C2C-51
 
