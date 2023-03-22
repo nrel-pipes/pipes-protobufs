@@ -27,6 +27,7 @@ message ResetResponse {
 // User
 message CreateUserRequest {
   User user = 1;
+  string modeling_team = 2;
 }
 
 message CreateUserResponse {
@@ -197,6 +198,16 @@ message CloseModelRunRequest {
 
 message CloseModelRunResponse {
   bool model_run_closed = 1;
+  string code = 2;
+  string details = 3;
+}
+
+message ListModelingTeamsRequest {
+  ModelContext model_context = 1;
+}
+
+message ListModelingTeamsResponse {
+  string modeling_teams = 1;
   string code = 2;
   string details = 3;
 }

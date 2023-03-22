@@ -14,9 +14,10 @@ service PIPES{
   // Utility
   rpc ResetGraph(ResetRequest) returns (ResetResponse) {}
 
-  // User
+  // Users & Teams
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
   rpc GetUserContext(GetUserContextRequest) returns (GetUserContextResponse) {}
+  rpc ListModelingTeams(ListModelingTeamsRequest) returns (ListModelingTeamsResponse) {}
 
   // Project
   rpc InitializeProject(InitializeProjectRequest) returns (InitializeProjectResponse) {} // C2C-49
