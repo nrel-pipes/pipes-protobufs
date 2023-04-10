@@ -247,6 +247,16 @@ message GetDatasetOwnerResponse {
   string details = 4;
 }
 
+message GetDatasetLocationSchemaRequest {
+  string system_type = 1;
+}
+
+message GetDatasetLocationSchemaResponse {
+  string location_schema = 1;
+  string code = 2;
+  string details = 3;
+}
+
 message GetDatasetLocationRequest {
   DatasetContext dataset_context = 1;
 }
