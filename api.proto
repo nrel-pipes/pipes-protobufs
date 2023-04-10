@@ -202,6 +202,16 @@ message CheckModelRunProgressResponse {
   string details = 3;
 }
 
+message CloseModelRunRequest {
+  ModelRunContext model_run_context = 1;
+}
+
+message CloseModelRunResponse {
+  bool model_run_closed = 1;
+  string code = 2;
+  string details = 3;
+}
+
 message ListModelingTeamsRequest {
   ModelContext model_context = 1;
 }
@@ -211,7 +221,6 @@ message ListModelingTeamsResponse {
   string code = 2;
   string details = 3;
 }
-
 
 // Dataset
 message CreateDatasetRequest {

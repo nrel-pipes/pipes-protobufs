@@ -43,6 +43,7 @@ service PIPES{
   rpc CreateModelRun(CreateModelRunRequest) returns (CreateModelRunResponse) {}
   rpc GetModelRunTemplate(GetModelRunTemplateRequest) returns (GetModelRunTemplateResponse) {}
   rpc CheckModelRunProgress(CheckModelRunProgressRequest) returns (CheckModelRunProgressResponse) {}
+  rpc CloseModelRun(CloseModelRunRequest) returns (CloseModelRunResponse) {}
 
   // Dataset
   rpc CreateDataset(CreateDatasetRequest) returns (CreateDatasetResponse) {} // C2C-29, C2C-30, C2C-31
