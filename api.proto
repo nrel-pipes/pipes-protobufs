@@ -226,7 +226,7 @@ message ListModelingTeamsResponse {
 message CreateDatasetRequest {
   ModelRunContext model_run_context = 1;
   string data = 2;
-  bool validation = 3;
+  bool metadata_validation = 3;
 }
 
 message CreateDatasetResponse {
