@@ -182,7 +182,7 @@ message GetModelProgressResponse {
   string model_progress = 1;
   string code = 2;
   string details = 3;
-} 
+}
 
 message GetModelRunTemplateRequest {
   ModelContext model_context = 1;
@@ -226,6 +226,7 @@ message ListModelingTeamsResponse {
 message CreateDatasetRequest {
   ModelRunContext model_run_context = 1;
   string data = 2;
+  bool validation = 3;
 }
 
 message CreateDatasetResponse {
