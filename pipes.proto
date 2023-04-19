@@ -61,4 +61,7 @@ service PIPES{
   rpc PutTasks(PutTasksRequest) returns (PutTasksResponse) {}
   rpc SubmitTasks(SubmitTasksRequest) returns (SubmitTasksResponse) {}
   rpc UpdateTaskStatus(UpdateTaskStatusRequest) returns (UpdateTaskStatusResponse) {}
+
+  // Exception
+  rpc LogException(LogExceptionRequest) returns (LogExceptionResponse) {}
 }
