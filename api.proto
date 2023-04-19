@@ -349,7 +349,6 @@ message UpdateTaskStatusResponse {
   string details = 4;
 }
 
-# Log Exception
 message ExceptionSource {
   string name = 1;
   string API = 2;
