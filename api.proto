@@ -182,7 +182,7 @@ message GetModelProgressResponse {
   string model_progress = 1;
   string code = 2;
   string details = 3;
-} 
+}
 
 message GetModelRunTemplateRequest {
   ModelContext model_context = 1;
@@ -345,6 +345,39 @@ message UpdateTaskStatusRequest {
 message UpdateTaskStatusResponse {
   string task_name = 1;
   string task_status = 2;
+  string code = 3;
+  string details = 4;
+}
+
+message ExceptionSource {
+  string name = 1;
+  string API = 2;
+  string CLI_command = 3;
+  string web_source= 4;
+  string identifier = 5;
+  string type = 6;
+  string user_id = 7;
+  string ip = 8;
+  string named_environment = 9;
+}
+
+message ExceptionData {
+  string stack_trace = 1;
+  string message = 2;
+  string client_structure = 3;
+}
+
+message LogExceptionRequest {
+  string name = 1;
+  string event_type = 2;
+  string event_time = 3;
+  ExceptionSource source = 4;
+  ExceptionData data = 5;
+}
+
+message LogExceptionResponse {
+  bool ack = 1;
+  string event_identifier = 2;
   string code = 3;
   string details = 4;
 }
