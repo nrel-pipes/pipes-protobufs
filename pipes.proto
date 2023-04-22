@@ -36,7 +36,7 @@ service PIPES{
   rpc CreateModel(CreateModelRequest) returns (CreateModelResponse) {}
   rpc GetModel(GetModelRequest) returns (GetModelResponse) {}
   rpc ListModels(ListModelsRequest) returns (ListModelsResponse) {}
-  rps CheckModelProgress(CheckModelProgressRequest) returns (CheckModelProgressResponse) {}
+  rpc CheckModelProgress(CheckModelProgressRequest) returns (CheckModelProgressResponse) {}
   rpc GetProjectsStatusForModel(GetProjectsStatusForModelRequest) returns (GetProjectsStatusForModelResponse) {} // C2C-51
   rpc GetModelProgress(GetModelProgressRequest) returns (GetModelProgressResponse) {}
 
