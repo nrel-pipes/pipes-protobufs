@@ -17,6 +17,16 @@ message PingResponse {
   string details = 4;
 }
 
+message NakedPingRequest {}
+
+message NakedPingResponse {
+  google.protobuf.Timestamp response_date = 1;
+  bool is_happy = 2;
+  string code = 3;
+  string details = 4;
+  string response_neptune_id = 5;
+}
+
 // Utility (Danger, Remove later?)
 message ResetRequest {}
 

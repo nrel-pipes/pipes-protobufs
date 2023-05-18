@@ -10,6 +10,7 @@ service PIPES{
 
   // Health
   rpc Ping(PingRequest) returns (PingResponse) {}
+  rpc NakedPing(NakedPingRequest) returns (NakedPingResponse) {}
 
   // Utility
   rpc ResetGraph(ResetRequest) returns (ResetResponse) {}
