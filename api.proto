@@ -184,6 +184,16 @@ message ListModelsResponse {
   string details = 3;
 }
 
+message CheckModelProgressRequest {
+  ModelContext model_context = 1;
+}
+
+message CheckModelProgressResponse {
+  string progress_status = 1;
+  string code = 2;
+  string details = 3;
+}
+
 message GetModelProgressRequest {
   ModelContext model_context = 1;
 }
