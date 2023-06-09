@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package pipes;
+
+import "api.proto";
+
+
+service PIPES{
+  // PIPES RPCs
+
+  // Health
+  rpc Ping(PingRequest) returns (PingResponse) {}
+  rpc NakedPing(NakedPingRequest) returns (NakedPingResponse) {}
+
+  // Utility
+  rpc ResetGraph(ResetRequest) returns (ResetResponse) {}
+
+  // Users & Teams
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
+  rpc GetUserContext(GetUserContextRequest) returns (GetUserContextResponse) {}
+  rpc ListModelingTeams(ListModelingTeamsRequest) returns (ListModelingTeamsResponse) {}
+
+  // Project
+  rpc InitializeProject(InitializeProjectRequest) returns (InitializeProjectResponse) {} // C2C-49
+  rpc GetProject(GetProjectRequest) returns (GetProjectResponse) {} // C2C-51
+  rpc GetProjectOwner(GetProjectOwnerRequest) returns (GetProjectOwnerResponse) {}
+  rpc GetProjectSchedule(GetProjectScheduleRequest) returns (GetProjectScheduleResponse) {}
+
+  // Project Run
+  rpc GetProjectRun(GetProjectRunRequest) returns (GetProjectRunResponse) {} // C2C-42, C2C-43
+  rpc ListProjectRuns(ListProjectRunsRequest) returns (ListProjectRunsResponse) {}
+  // rpc CreateProjectRun(stream CreateProjectRunRequest) returns (stream CreateProjectRunResponse) {}
+  rpc CheckProjectRunProgress(CheckProjectRunProgressRequest) returns (CheckProjectRunProgressResponse) {}
+
+  // Model
+  // rpc GetModelContact(ModelRunRequest) returns (GetModelContactResponse) {} // C2C-28
+  rpc CreateModel(CreateModelRequest) returns (CreateModelResponse) {}
+  rpc GetModel(GetModelRequest) returns (GetModelResponse) {}
+  rpc ListModels(ListModelsRequest) returns (ListModelsResponse) {}
+  rpc CheckModelProgress(CheckModelProgressRequest) returns (CheckModelProgressResponse) {}
+  rpc GetProjectsStatusForModel(GetProjectsStatusForModelRequest) returns (GetProjectsStatusForModelResponse) {} // C2C-51
+  rpc GetModelProgress(GetModelProgressRequest) returns (GetModelProgressResponse) {}
+
+  // Model Run
+  rpc CreateModelRun(CreateModelRunRequest) returns (CreateModelRunResponse) {}
+  rpc GetModelRunTemplate(GetModelRunTemplateRequest) returns (GetModelRunTemplateResponse) {}
+  rpc CheckModelRunProgress(CheckModelRunProgressRequest) returns (CheckModelRunProgressResponse) {}
+  rpc CloseModelRun(CloseModelRunRequest) returns (CloseModelRunResponse) {}
+
+  // Dataset
+  rpc CreateDataset(CreateDatasetRequest) returns (CreateDatasetResponse) {} // C2C-29, C2C-30, C2C-31
+  rpc ListDatasets(ListDatasetsRequest) returns (ListDatasetsResponse) {} // C2C-35
+  rpc GetDatasetOwner(GetDatasetOwnerRequest) returns (GetDatasetOwnerResponse) {} // C2C-37
+  rpc GetDatasetLocation(GetDatasetLocationRequest) returns (GetDatasetLocationResponse) {} // C2C-36
+  rpc GetDatasetLocationSchema(GetDatasetLocationSchemaRequest) returns (GetDatasetLocationSchemaResponse) {}
+  // rpc GetDatasetLineage(stream GetDatasetRequest) returns (stream GetDatasetLineageResponse) {} // C2C-39, C2C-40
+  // rpc UpdateDataset(stream UpdateDatasetRequest) returns (stream UpdateDatasetResponse) {} // C2C-33
+
+  // Task
+  rpc GetTask(GetTaskRequest) returns (GetTaskResponse) {}
+  rpc GetTaskStatus(GetTaskStatusRequest) returns (GetTaskStatusResponse) {}
+  rpc ListTasks(ListTasksRequest) returns (ListTasksResponse) {}
+  rpc PutTasks(PutTasksRequest) returns (PutTasksResponse) {}
+  rpc SubmitTasks(SubmitTasksRequest) returns (SubmitTasksResponse) {}
+  rpc UpdateTaskStatus(UpdateTaskStatusRequest) returns (UpdateTaskStatusResponse) {}
+
+  // Exception
+  rpc LogException(LogExceptionRequest) returns (LogExceptionResponse) {}
+}

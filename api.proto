@@ -1,0 +1,404 @@
+syntax = "proto3";
+
+package pipes;
+
+import "google/protobuf/timestamp.proto";
+import "types.proto";
+
+// Health Ping
+message PingRequest {
+  string who_i_am = 1;
+}
+
+message PingResponse {
+  google.protobuf.Timestamp response_date = 1;
+  bool is_happy = 2;
+  string code = 3;
+  string details = 4;
+}
+
+message NakedPingRequest {}
+
+message NakedPingResponse {
+  google.protobuf.Timestamp response_date = 1;
+  bool is_happy = 2;
+  string code = 3;
+  string details = 4;
+  string response_neptune_id = 5;
+}
+
+// Utility (Danger, Remove later?)
+message ResetRequest {}
+
+message ResetResponse {
+  bool reset_success = 1;
+}
+
+// User
+message CreateUserRequest {
+  User user = 1;
+  string modeling_team = 2;
+}
+
+message CreateUserResponse {
+  string vertex_id = 1;
+  string username = 2;
+  string code = 3;
+  string details = 4;
+}
+
+// User Context
+message GetUserContextRequest {
+  User user = 1;
+}
+
+message GetUserContextResponse {
+  string context_items = 1;
+  string code = 2;
+  string details = 3;
+}
+
+// Project
+message InitializeProjectRequest {
+  string data = 1;
+}
+
+message InitializeProjectResponse {
+  string vertex_id = 1;
+  string project_name = 2;
+  string code = 3;
+  string details = 4;
+}
+
+message GetProjectRequest {
+  ProjectContext project_context = 1;
+}
+
+message GetProjectResponse {
+  string project = 1;
+  string code = 2;
+  string details = 3;
+}
+
+message GetProjectsStatusForModelRequest {
+  ModelContext model_context = 1;
+}
+
+message GetProjectsStatusForModelResponse {
+  string projects = 1;
+  string code = 2;
+  string details = 3;
+}
+
+message GetProjectOwnerRequest {
+  ProjectContext project_context = 1;
+}
+
+message GetProjectOwnerResponse {
+  string vertex_id = 1;
+  User project_owner = 2;
+  string code = 3;
+  string details = 4;
+}
+
+message GetProjectScheduleRequest {
+  ProjectContext project_context = 1;
+}
+
+message GetProjectScheduleResponse {
+  string project_schedule = 1;
+  string code = 2;
+  string details = 3;
+}
+
+// ProjectRun
+message GetProjectRunRequest {
+  ProjectRunContext project_run_context = 1;
+}
+
+message GetProjectRunResponse {
+  string project_run = 1;
+}
+
+message CheckProjectRunProgressRequest {
+  ProjectRunContext project_run_context = 1;
+}
+
+message CheckProjectRunProgressResponse {
+  string progress_status = 1;
+  string code = 2;
+  string details = 3;
+}
+
+message ListProjectRunsRequest {
+  ProjectContext project_context = 1;
+}
+
+message ListProjectRunsResponse {
+  string project_runs = 1;
+  string code = 2;
+  string details = 3;
+}
+
+// Model
+message CreateModelRequest {
+  Model model = 1;
+}
+
+message CreateModelResponse {
+  string vertex_id = 1;
+  string model_name = 2;
+  string code = 3;
+  string details = 4;
+}
+
+message CreateModelRunRequest {
+  ModelContext model_context = 1;
+  string data = 2;
+}
+
+message CreateModelRunResponse {
+  string vertex_id = 1;
+  string model_run_name = 2;
+  string code = 3;
+  string details = 4;
+}
+
+message GetModelRequest {
+  ModelContext model_context = 1;
+}
+
+message GetModelResponse {
+  string model = 1;
+  string code = 2;
+  string details = 3;
+}
+
+message ListModelsRequest {
+  ProjectRunContext project_run_context = 1;
+}
+
+message ListModelsResponse {
+  string models = 1;
+  string code = 2;
+  string details = 3;
+}
+
+message CheckModelProgressRequest {
+  ModelContext model_context = 1;
+}
+
+message CheckModelProgressResponse {
+  string progress_status = 1;
+  string code = 2;
+  string details = 3;
+}
+
+message GetModelProgressRequest {
+  ModelContext model_context = 1;
+}
+
+message GetModelProgressResponse {
+  string model_progress = 1;
+  string code = 2;
+  string details = 3;
+}
+
+message GetModelRunTemplateRequest {
+  ModelContext model_context = 1;
+}
+
+message GetModelRunTemplateResponse {
+  string handoff_data = 1;
+}
+
+message CheckModelRunProgressRequest {
+  ModelRunContext model_run_context = 1;
+}
+
+message CheckModelRunProgressResponse {
+  string progress_status = 1;
+  string code = 2;
+  string details = 3;
+}
+
+message CloseModelRunRequest {
+  ModelRunContext model_run_context = 1;
+}
+
+message CloseModelRunResponse {
+  bool model_run_closed = 1;
+  string code = 2;
+  string details = 3;
+}
+
+message ListModelingTeamsRequest {
+  ModelContext model_context = 1;
+}
+
+message ListModelingTeamsResponse {
+  string modeling_teams = 1;
+  string code = 2;
+  string details = 3;
+}
+
+// Dataset
+message CreateDatasetRequest {
+  ModelRunContext model_run_context = 1;
+  string data = 2;
+  bool metadata_validation = 3;
+}
+
+message CreateDatasetResponse {
+  string vertex_id = 1;
+  string dataset_name = 2;
+  string code = 3;
+  string details = 4;
+}
+
+message ListDatasetsRequest {
+  ModelRunContext model_run_context = 1;
+}
+
+message ListDatasetsResponse {
+  string datasets = 1;
+  string code = 2;
+  string details = 3;
+}
+
+message GetDatasetOwnerRequest {
+  DatasetContext dataset_context = 1;
+}
+
+message GetDatasetOwnerResponse {
+  string vertex_id = 1;
+  User dataset_owner = 2;
+  string code = 3;
+  string details = 4;
+}
+
+message GetDatasetLocationSchemaRequest {
+  string system_type = 1;
+}
+
+message GetDatasetLocationSchemaResponse {
+  string location_schema = 1;
+  string code = 2;
+  string details = 3;
+}
+
+message GetDatasetLocationRequest {
+  DatasetContext dataset_context = 1;
+}
+
+message GetDatasetLocationResponse {
+  string location = 1;
+  string code = 2;
+  string details = 3;
+}
+
+// Task
+message GetTaskRequest {
+  ModelRunContext model_run_context = 1;
+  string handoff_id = 2;
+  string task_id = 3;
+}
+
+message GetTaskResponse {
+  string task = 1;
+  string code = 2;
+  string details = 3;
+}
+
+message ListTasksRequest {
+  ModelRunContext model_run_context = 1;
+  string handoff_id = 2;
+  string task_type = 3;
+}
+
+message ListTasksResponse {
+  string tasks = 1;
+  string code = 2;
+  string details = 3;
+}
+
+message PutTasksRequest {
+  ModelRunContext model_run_context = 1;
+  string data = 2;
+}
+
+message PutTasksResponse {
+  string model_run_name = 1;
+  string code = 2;
+  string details = 3;
+}
+
+message SubmitTasksRequest {
+  ModelRunContext model_run_context = 1;
+  string task_data = 2;
+  string dataset_data = 3;
+  string task_status = 4;
+}
+
+message SubmitTasksResponse {
+  string vertex_id = 1;
+  string task_name = 2;
+  string code = 3;
+  string details = 4;
+}
+
+message GetTaskStatusRequest {
+  TaskContext task_context = 1;
+}
+
+message GetTaskStatusResponse {
+  string task_name = 1;
+  string task_status = 2;
+  string code = 3;
+  string details = 4;
+}
+
+message UpdateTaskStatusRequest {
+  TaskContext task_context = 1;
+  string task_status = 2;
+}
+
+message UpdateTaskStatusResponse {
+  string task_name = 1;
+  string task_status = 2;
+  string code = 3;
+  string details = 4;
+}
+
+message ExceptionSource {
+  string name = 1;
+  string API = 2;
+  string CLI_command = 3;
+  string web_source= 4;
+  string identifier = 5;
+  string type = 6;
+  string user_id = 7;
+  string ip = 8;
+  string named_environment = 9;
+}
+
+message ExceptionData {
+  string stack_trace = 1;
+  string message = 2;
+  string client_structure = 3;
+}
+
+message LogExceptionRequest {
+  string name = 1;
+  string event_type = 2;
+  string event_time = 3;
+  ExceptionSource source = 4;
+  ExceptionData data = 5;
+}
+
+message LogExceptionResponse {
+  bool ack = 1;
+  string event_identifier = 2;
+  string code = 3;
+  string details = 4;
+}
