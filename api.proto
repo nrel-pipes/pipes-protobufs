@@ -70,6 +70,17 @@ message InitializeProjectResponse {
   string details = 4;
 }
 
+message UpdateProjectRequest {
+  ProjectContext project_context = 1;
+  string data = 2;
+}
+
+message UpdateProjectResponse {
+  string vertex_id = 1;
+  string code = 2;
+  string details = 3;
+}
+
 message GetProjectRequest {
   ProjectContext project_context = 1;
 }
@@ -136,6 +147,17 @@ message ListProjectRunsRequest {
 
 message ListProjectRunsResponse {
   string project_runs = 1;
+  string code = 2;
+  string details = 3;
+}
+
+message CreateProjectRunRequest{
+  ProjectContext project_context = 1;
+  string data = 2;
+}
+
+message CreateProjectRunResponse{
+  string vertex_id = 1;
   string code = 2;
   string details = 3;
 }

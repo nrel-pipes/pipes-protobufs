@@ -22,6 +22,7 @@ service PIPES{
 
   // Project
   rpc InitializeProject(InitializeProjectRequest) returns (InitializeProjectResponse) {} // C2C-49
+  rpc UpdateProject(UpdateProjectRequest) returns (UpdateProjectResponse) {}
   rpc GetProject(GetProjectRequest) returns (GetProjectResponse) {} // C2C-51
   rpc GetProjectOwner(GetProjectOwnerRequest) returns (GetProjectOwnerResponse) {}
   rpc GetProjectSchedule(GetProjectScheduleRequest) returns (GetProjectScheduleResponse) {}
@@ -29,7 +30,7 @@ service PIPES{
   // Project Run
   rpc GetProjectRun(GetProjectRunRequest) returns (GetProjectRunResponse) {} // C2C-42, C2C-43
   rpc ListProjectRuns(ListProjectRunsRequest) returns (ListProjectRunsResponse) {}
-  // rpc CreateProjectRun(stream CreateProjectRunRequest) returns (stream CreateProjectRunResponse) {}
+  rpc CreateProjectRun(CreateProjectRunRequest) returns (CreateProjectRunResponse) {}
   rpc CheckProjectRunProgress(CheckProjectRunProgressRequest) returns (CheckProjectRunProgressResponse) {}
 
   // Model
