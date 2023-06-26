@@ -333,14 +333,14 @@ message PutTasksResponse {
   string details = 3;
 }
 
-message SubmitTasksRequest {
+message CreateTasksRequest {
   ModelRunContext model_run_context = 1;
   string task_data = 2;
   string dataset_data = 3;
   string task_status = 4;
 }
 
-message SubmitTasksResponse {
+message CreateTasksResponse {
   string vertex_id = 1;
   string task_name = 2;
   string code = 3;
