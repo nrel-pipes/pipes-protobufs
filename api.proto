@@ -322,8 +322,7 @@ message GetDatasetLocationResponse {
 // Task
 message GetTaskRequest {
   ModelRunContext model_run_context = 1;
-  string handoff_id = 2;
-  string task_id = 3;
+  string task_id = 2;
 }
 
 message GetTaskResponse {
