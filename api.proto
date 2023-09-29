@@ -423,3 +423,15 @@ message LogExceptionResponse {
   string code = 3;
   string details = 4;
 }
+
+message Activity {
+  string date = 1;
+  string name = 2;
+  string json_data = 3;
+}
+
+message ActivitiesResponse {
+  repeated Activity activities = 1;
+  string code = 2;
+  string details = 3;
+}
